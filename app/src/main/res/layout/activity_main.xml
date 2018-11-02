@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.sziti.counterfeittopnews.widget.NoScrollViewPager
+        android:id="@+id/activity_main_page"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <RadioGroup
+            android:id="@+id/rg_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#d5d5d5"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_home"
+                style="@style/home_menu_radio"
+                android:drawableTop="@drawable/tab_home"
+                android:text="首页" />
+
+            <RadioButton
+                android:id="@+id/rb_xigua_video"
+                style="@style/home_menu_radio"
+                android:drawableTop="@drawable/tab_photo"
+                android:text="西瓜视频" />
+
+            <RadioButton
+                android:id="@+id/rb_send_top"
+                style="@style/home_menu_radio"
+                android:drawableTop="@mipmap/add_channel_titlbar"
+                android:text="发头条" />
+
+            <RadioButton
+                android:id="@+id/rb_little_video"
+                style="@style/home_menu_radio"
+                android:drawableTop="@drawable/tab_phone"
+                android:text="小视频" />
+
+            <RadioButton
+                android:id="@+id/rb_personal_center"
+                style="@style/home_menu_radio"
+                android:drawableTop="@drawable/tab_personal_center"
+                android:text="我的" />
+        </RadioGroup>
+    </RelativeLayout>
+</LinearLayout>
