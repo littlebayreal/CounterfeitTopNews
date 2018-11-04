@@ -17,6 +17,7 @@
             android:layout_height="40dp"
             app:tabSelectedTextColor="@color/colorPrimary"
             app:tabMaxWidth="80dp"
+            android:paddingRight="40dp"
             app:tabTextColor="@color/black" />
 
         <ImageButton

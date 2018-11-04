@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.sziti.counterfeittopnews.widget.pullableview.PullToRefreshLayout
+        android:id="@+id/fragment_base_sub_pullToRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/refresh_head" />
+
+        <com.sziti.counterfeittopnews.widget.pullableview.PullableRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <FrameLayout
+            android:id="@+id/base_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/base_nodata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawableTop="@mipmap/icon_empty"
+            android:drawablePadding="20dp"
+            android:text="抱歉，没有符合条件的内容"
+            android:textColor="@color/gray"
+            android:textSize="15sp"
+            android:visibility="gone"/>
+        </com.sziti.counterfeittopnews.widget.pullableview.PullableRelativeLayout>
+        <include layout="@layout/load_more" />
+    </com.sziti.counterfeittopnews.widget.pullableview.PullToRefreshLayout>
+</LinearLayout>

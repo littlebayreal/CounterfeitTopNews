@@ -9,25 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sziti.counterfeittopnews.R;
+import com.sziti.counterfeittopnews.widget.pullableview.PullToRefreshLayout;
 
-public class BaseFragment extends Fragment {
+public class BaseSubFragment extends Fragment {
     private String TAG;
-    private RelativeLayout mHeaderBar;
-    private ImageButton mBaseLeft;
-    private ImageButton mBaseRight;
-    private Button mBaseRightText;
-    private TextView mBaseText;
     private FrameLayout mBaseContainer;
     private TextView mBaseNodata;
     //刷新控件
-//    private VerticalSwipeRefreshLayout swipeRefreshLayout;
+    private PullToRefreshLayout swipeRefreshLayout;
     public String getTAG() {
         return TAG;
     }
@@ -35,7 +28,6 @@ public class BaseFragment extends Fragment {
     public void setTAG(String TAG) {
         this.TAG = TAG;
     }
-
     /**
      * rootView是否初始化标志，防止回调函数在rootView为空的时候触发
      */
@@ -130,7 +122,8 @@ public class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_base_fs, null);
+        Log.e("zxxx", "basefragment oncreateview");
+        view = inflater.inflate(R.layout.fragment_base_sub_fs, null);
 //        mHeaderBar = (RelativeLayout) view.findViewById(R.id.header_bar);
 //        mBaseLeft = (ImageButton) view.findViewById(R.id.header_btn_back);
 //        mBaseRight = (ImageButton) view.findViewById(R.id.header_btn_settings);
@@ -138,7 +131,7 @@ public class BaseFragment extends Fragment {
         mBaseContainer = (FrameLayout) view.findViewById(R.id.base_container);
         mBaseNodata = (TextView) view.findViewById(R.id.base_nodata);
 //        mBaseRightText = (Button) view.findViewById(R.id.header_btn_right_text);
-//        swipeRefreshLayout = (VerticalSwipeRefreshLayout) view.findViewById(R.id.base_refresh);
+        swipeRefreshLayout = view.findViewById(R.id.fragment_base_sub_pullToRefresh);
 //        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 //            @Override
 //            public void onRefresh() {
@@ -163,35 +156,35 @@ public class BaseFragment extends Fragment {
     public View onCreateSubView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return null;
     }
-    /**
-     * 设置标题
-     *
-     * @param title
-     */
-    public void setTitle(String title) {
-        if (mBaseText != null) {
-            mBaseText.setText(title);
-        }
-    }
-
-    public RelativeLayout getmHeaderBar() {
-        return mHeaderBar;
-    }
-    public ImageButton getBaseLeft() {
-        return mBaseLeft;
-    }
-
-    public ImageButton getBaseRight() {
-        return mBaseRight;
-    }
-
-    public Button getBaseRightText() {
-        return mBaseRightText;
-    }
-
-//    public VerticalSwipeRefreshLayout getSwipeRefreshLayout() {
-//        return swipeRefreshLayout;
+//    /**
+//     * 设置标题
+//     *
+//     * @param title
+//     */
+//    public void setTitle(String title) {
+//        if (mBaseText != null) {
+//            mBaseText.setText(title);
+//        }
 //    }
+//
+//    public RelativeLayout getmHeaderBar() {
+//        return mHeaderBar;
+//    }
+//    public ImageButton getBaseLeft() {
+//        return mBaseLeft;
+//    }
+//
+//    public ImageButton getBaseRight() {
+//        return mBaseRight;
+//    }
+//
+//    public Button getBaseRightText() {
+//        return mBaseRightText;
+//    }
+
+    public PullToRefreshLayout getSwipeRefreshLayout() {
+        return swipeRefreshLayout;
+    }
     /**
      * 初始化进度条提示框
      */

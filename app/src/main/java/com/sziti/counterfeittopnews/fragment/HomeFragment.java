@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.sziti.counterfeittopnews.R;
 import com.sziti.counterfeittopnews.base.BaseFragment;
+import com.sziti.counterfeittopnews.base.BaseSubFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.List;
 public class HomeFragment extends BaseFragment {
     private ViewPager vp;
     private TabLayout tabLayout;
-    private List<BaseFragment> fragmentList;
+    private List<BaseSubFragment> fragmentList;
     private String[] menu = {"关注", "推荐", "苏州", "视频", "热点", "小视频", "图片"};
 
     @Override
