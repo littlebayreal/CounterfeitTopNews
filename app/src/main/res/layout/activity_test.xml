@@ -11,7 +11,7 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        app:srcCompat="@mipmap/publish_entry_resale"
+        app:srcCompat="@mipmap/ic_launcher"
 
         />
 
@@ -21,7 +21,7 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        app:srcCompat="@mipmap/publish_entry_with_photo"
+        app:srcCompat="@mipmap/ic_launcher"
 
         />
 
@@ -31,5 +31,5 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        app:srcCompat="@mipmap/comui_tab_post" />
+        app:srcCompat="@mipmap/ic_launcher" />
 </RelativeLayout>

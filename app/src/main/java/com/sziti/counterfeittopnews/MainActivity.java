@@ -1,15 +1,33 @@
 package com.sziti.counterfeittopnews;
+
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.animation.OvershootInterpolator;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sziti.counterfeittopnews.base.BaseFragment;
 import com.sziti.counterfeittopnews.base.BaseFragmentActivity;
 import com.sziti.counterfeittopnews.fragment.HomeFragment;
+import com.sziti.counterfeittopnews.util.GeometryUtil;
+import com.sziti.counterfeittopnews.util.ScreenUtils;
+import com.sziti.counterfeittopnews.widget.CustomRadioGroup;
 import com.sziti.counterfeittopnews.widget.NoScrollViewPager;
 
 import java.util.ArrayList;
@@ -18,13 +36,15 @@ import java.util.List;
 public class MainActivity extends BaseFragmentActivity {
     private NoScrollViewPager novp;
     private List<BaseFragment> fragments;
-    private RadioGroup rgHome;
+    private CustomRadioGroup rgHome;
     private FragmentStatePagerAdapter fragmentStatePagerAdapter;
+    private int checked = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
-        setContentView(R.layout.activity_main,BANNER_SEARCH);
+        setContentView(R.layout.activity_main, BANNER_SEARCH);
 
         initView();
         initData();
@@ -32,31 +52,101 @@ public class MainActivity extends BaseFragmentActivity {
     }
 
     private void initListener() {
-        rgHome.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        rgHome.setExceptionButton(R.id.rb_send_top);
+        rgHome.setOnItemTabClickListener(new CustomRadioGroup.OnItemTabClickListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
+            public void onItemClick(CustomRadioGroup group, int checkedId) {
+                if (checkedId != R.id.rb_send_top)
+                    checked = checkedId;
                 switch (checkedId) {
                     case R.id.rb_home:
-                        Log.e("main","rb_home");
+                        Log.e("main", "rb_home");
                         novp.setCurrentItem(0, false);
                         break;
                     case R.id.rb_xigua_video:
-                        Log.e("main","rb_photo");
+                        Log.e("main", "rb_photo");
                         novp.setCurrentItem(1, false);
                         break;
                     case R.id.rb_send_top:
-                        Toast.makeText(MainActivity.this, "发送你的头条", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.rb_little_video:
                         novp.setCurrentItem(2, false);
                         break;
                     case R.id.rb_personal_center:
-                        Log.e("main","rb_personal_center");
+                        Log.e("main", "rb_personal_center");
                         novp.setCurrentItem(3, false);
                         break;
                 }
             }
         });
+        findViewById(R.id.rb_send_top).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog();
+            }
+        });
+    }
+
+    //初始化并弹出对话框方法
+    private void showDialog() {
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_send_top, null, false);
+        final AlertDialog dialog = new AlertDialog.Builder(this).setView(view).create();
+
+        final ImageView button = view.findViewById(R.id.button);
+        float viewHeight = (float) (-ScreenUtils.getScreenHeight(this) / 8);
+        float l0indeX = (float) (-ScreenUtils.getScreenWidth(this) / 3);
+        float l1indeX = (float) (-ScreenUtils.getScreenWidth(this) / 8);
+        float r0indeX = (float) (ScreenUtils.getScreenWidth(this) / 8);
+        float r1indeX = (float) (ScreenUtils.getScreenWidth(this) / 3);
+
+        final PointF[] points = new PointF[4];
+        //变化完成后的坐标
+        points[0] = new PointF(l0indeX, viewHeight);
+        points[1] = new PointF(l1indeX, viewHeight);
+        points[2] = new PointF(r0indeX, viewHeight);
+        points[3] = new PointF(r1indeX, viewHeight);
+        TextView view1 = view.findViewById(R.id.send_img_txt);
+        TextView view2 = view.findViewById(R.id.little_video);
+        TextView view3 = view.findViewById(R.id.send_video);
+        TextView view4 = view.findViewById(R.id.question);
+        final TextView[] imgs = new TextView[]{view1, view2, view3, view4};
+
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                ValueAnimator anim = ValueAnimator.ofFloat(0f, 100f);
+                anim.setDuration(500);
+                anim.setInterpolator(new OvershootInterpolator());
+                anim.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                    }
+                });
+                anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                           @Override
+                                           public void onAnimationUpdate(ValueAnimator animation) {
+                                               float currentValue = (float) animation.getAnimatedValue();
+                                               Log.e("eee", "current:" + currentValue);
+                                               button.setRotation((float) (-180 + 45 * (currentValue / 100)));
+                                               Log.e("eee", "roration:" + (-180 + 180 * (currentValue / 100)));
+                                               openAnimation(imgs[0], currentValue, points[0], 180, 2f);
+                                               openAnimation(imgs[1], currentValue, points[1], 180, 2f);
+                                               openAnimation(imgs[2], currentValue, points[2], 180, 2f);
+                                               openAnimation(imgs[3], currentValue, points[3], 180, 2f);
+                                           }
+                                       }
+                );
+                anim.start();
+            }
+        });
+
+        dialog.show();
+        //此处设置位置窗体大小，我这里设置为了手机屏幕宽度的3/4
+        dialog.getWindow().setLayout(ScreenUtils.getScreenWidth(this), ScreenUtils.getScreenHeight(this) / 4);
+        dialog.getWindow().setDimAmount(0);
+        dialog.getWindow().getAttributes().gravity = Gravity.BOTTOM;
+        dialog.getWindow().setBackgroundDrawable(null);
     }
 
     private void initData() {
@@ -74,6 +164,7 @@ public class MainActivity extends BaseFragmentActivity {
 
         rgHome = findViewById(R.id.rg_home);
     }
+
     class HomeViewPagerAdapter extends FragmentStatePagerAdapter {
 
         public HomeViewPagerAdapter(FragmentManager fm) {
@@ -99,6 +190,55 @@ public class MainActivity extends BaseFragmentActivity {
         @Override
         public int getCount() {
             return fragments.size();
+        }
+    }
+
+    /**
+     * @param v
+     * @param value 进度条 max100
+     * @param endP  结束坐标
+     * @param angle 旋转度数
+     * @param size  放大倍数
+     */
+    public void openAnimation(View v, float value, PointF endP, float angle, float size) {
+        //设置控件旋转
+        v.setRotation((float) (-angle + angle * (value / 100)));
+        //设置缩放比例
+        if (size / 100 * value < size) {
+            if (size / 100 * value >= 1) {
+                v.setScaleX(size / 100 * value);
+                v.setScaleY(size / 100 * value);
+            }
+        }
+        //设置控件的移动
+        if (value >= 0) {
+            PointF moveP = GeometryUtil.getPointByPercent(new PointF(0, 0), endP, value / 100);
+            v.setTranslationX(moveP.x);
+            v.setTranslationY(moveP.y);
+        }
+    }
+
+    public void closeAnimation(View v, float value, PointF endP, float angle, float size) {
+        value = 100 - value;
+        v.setRotation((float) (-angle + angle * (value / 100)));
+        if (size / 100 * value < size) {
+            if (size / 100 * value >= 1) {
+                v.setScaleX(size / 100 * value);
+                v.setScaleY(size / 100 * value);
+            } else {
+                v.setScaleX(1);
+                v.setScaleY(1);
+            }
+        }
+
+        if (value < 100 && value > 0f) {
+            PointF moveP = GeometryUtil.getPointByPercent(new PointF(0, 0), endP, value / 100);
+            v.setTranslationX(moveP.x);
+            v.setTranslationY(moveP.y);
+        } else if (value < 0) {
+            PointF moveP = GeometryUtil.getPointByPercent(new PointF(0, 0), endP, 0);
+            v.setTranslationX(moveP.x);
+            v.setTranslationY(moveP.y);
         }
     }
 }
