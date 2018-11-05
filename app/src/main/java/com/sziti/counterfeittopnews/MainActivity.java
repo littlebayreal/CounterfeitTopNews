@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -29,6 +30,7 @@ import com.sziti.counterfeittopnews.util.GeometryUtil;
 import com.sziti.counterfeittopnews.util.ScreenUtils;
 import com.sziti.counterfeittopnews.widget.CustomRadioGroup;
 import com.sziti.counterfeittopnews.widget.NoScrollViewPager;
+import com.sziti.counterfeittopnews.widget.OutSideListenDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +45,6 @@ public class MainActivity extends BaseFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_main, BANNER_SEARCH);
 
         initView();
@@ -67,8 +68,6 @@ public class MainActivity extends BaseFragmentActivity {
                         Log.e("main", "rb_photo");
                         novp.setCurrentItem(1, false);
                         break;
-                    case R.id.rb_send_top:
-                        break;
                     case R.id.rb_little_video:
                         novp.setCurrentItem(2, false);
                         break;
@@ -90,13 +89,13 @@ public class MainActivity extends BaseFragmentActivity {
     //初始化并弹出对话框方法
     private void showDialog() {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_send_top, null, false);
-        final AlertDialog dialog = new AlertDialog.Builder(this).setView(view).create();
-
+        final OutSideListenDialog dialog = new OutSideListenDialog(this);
+        dialog.setView(view);
         final ImageView button = view.findViewById(R.id.button);
-        float viewHeight = (float) (-ScreenUtils.getScreenHeight(this) / 8);
+        float viewHeight = (float) (-ScreenUtils.getScreenHeight(this) / 9);
         float l0indeX = (float) (-ScreenUtils.getScreenWidth(this) / 3);
-        float l1indeX = (float) (-ScreenUtils.getScreenWidth(this) / 8);
-        float r0indeX = (float) (ScreenUtils.getScreenWidth(this) / 8);
+        float l1indeX = (float) (-ScreenUtils.getScreenWidth(this) / 9);
+        float r0indeX = (float) (ScreenUtils.getScreenWidth(this) / 9);
         float r1indeX = (float) (ScreenUtils.getScreenWidth(this) / 3);
 
         final PointF[] points = new PointF[4];
@@ -105,11 +104,11 @@ public class MainActivity extends BaseFragmentActivity {
         points[1] = new PointF(l1indeX, viewHeight);
         points[2] = new PointF(r0indeX, viewHeight);
         points[3] = new PointF(r1indeX, viewHeight);
-        TextView view1 = view.findViewById(R.id.send_img_txt);
-        TextView view2 = view.findViewById(R.id.little_video);
-        TextView view3 = view.findViewById(R.id.send_video);
-        TextView view4 = view.findViewById(R.id.question);
-        final TextView[] imgs = new TextView[]{view1, view2, view3, view4};
+        View view1 = view.findViewById(R.id.send_img_txt);
+        View view2 = view.findViewById(R.id.little_video);
+        View view3 = view.findViewById(R.id.send_video);
+        View view4 = view.findViewById(R.id.question);
+        final View[] imgs = new View[]{view1, view2, view3, view4};
 
         dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
@@ -117,12 +116,6 @@ public class MainActivity extends BaseFragmentActivity {
                 ValueAnimator anim = ValueAnimator.ofFloat(0f, 100f);
                 anim.setDuration(500);
                 anim.setInterpolator(new OvershootInterpolator());
-                anim.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        super.onAnimationEnd(animation);
-                    }
-                });
                 anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                                            @Override
                                            public void onAnimationUpdate(ValueAnimator animation) {
@@ -140,7 +133,62 @@ public class MainActivity extends BaseFragmentActivity {
                 anim.start();
             }
         });
-
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ValueAnimator anim = ValueAnimator.ofFloat(0f, 100f);
+                anim.setDuration(200);
+                anim.setInterpolator(new LinearInterpolator());
+                anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                           @Override
+                                           public void onAnimationUpdate(ValueAnimator animation) {
+                                               float currentValue = (float) animation.getAnimatedValue();
+                                               Log.e("eee", "current:" + currentValue);
+                                               button.setRotation((float) (45 - 45 * (currentValue / 100)));
+                                               closeAnimation(imgs[0], currentValue, points[0], 180, 2f);
+                                               closeAnimation(imgs[1], currentValue, points[1], 180, 2f);
+                                               closeAnimation(imgs[2], currentValue, points[2], 180, 2f);
+                                               closeAnimation(imgs[3], currentValue, points[3], 180, 2f);
+                                           }
+                                       });
+                anim.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        dialog.dismiss();
+                    }
+                });
+                anim.start();
+            }
+        });
+        dialog.setOutTouchListener(new OutSideListenDialog.OutTouchListener() {
+            @Override
+            public void outTouch() {
+                Log.e("eee", "消失吧");
+                ValueAnimator anim = ValueAnimator.ofFloat(0f, 100f);
+                anim.setDuration(200);
+                anim.setInterpolator(new LinearInterpolator());
+                anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        float currentValue = (float) animation.getAnimatedValue();
+                        button.setRotation((float) (45 - 45 * (currentValue / 100)));
+                        closeAnimation(imgs[0], currentValue, points[0], 180, 2f);
+                        closeAnimation(imgs[1], currentValue, points[1], 180, 2f);
+                        closeAnimation(imgs[2], currentValue, points[2], 180, 2f);
+                        closeAnimation(imgs[3], currentValue, points[3], 180, 2f);
+                    }
+                });
+                anim.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        dialog.dismiss();
+                    }
+                });
+                anim.start();
+            }
+        });
         dialog.show();
         //此处设置位置窗体大小，我这里设置为了手机屏幕宽度的3/4
         dialog.getWindow().setLayout(ScreenUtils.getScreenWidth(this), ScreenUtils.getScreenHeight(this) / 4);
@@ -221,14 +269,10 @@ public class MainActivity extends BaseFragmentActivity {
     public void closeAnimation(View v, float value, PointF endP, float angle, float size) {
         value = 100 - value;
         v.setRotation((float) (-angle + angle * (value / 100)));
-        if (size / 100 * value < size) {
-            if (size / 100 * value >= 1) {
-                v.setScaleX(size / 100 * value);
-                v.setScaleY(size / 100 * value);
-            } else {
-                v.setScaleX(1);
-                v.setScaleY(1);
-            }
+
+        if (size * (value / 100) <= size) {
+            v.setScaleX(size * (value / 100));
+            v.setScaleY(size * (value / 100));
         }
 
         if (value < 100 && value > 0f) {
