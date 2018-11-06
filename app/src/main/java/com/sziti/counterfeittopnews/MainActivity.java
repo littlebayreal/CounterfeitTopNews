@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -91,7 +92,9 @@ public class MainActivity extends BaseFragmentActivity {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_send_top, null, false);
         final OutSideListenDialog dialog = new OutSideListenDialog(this);
         dialog.setView(view);
+        LinearLayout ll = view.findViewById(R.id.dialog_send_top_bg);
         final ImageView button = view.findViewById(R.id.button);
+        ll.setTranslationY(ScreenUtils.getScreenHeight(this) / 9 - 100 - 30);
         float viewHeight = (float) (-ScreenUtils.getScreenHeight(this) / 9);
         float l0indeX = (float) (-ScreenUtils.getScreenWidth(this) / 3);
         float l1indeX = (float) (-ScreenUtils.getScreenWidth(this) / 9);

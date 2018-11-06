@@ -1,6 +1,8 @@
 package com.sziti.counterfeittopnews.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +14,17 @@ import com.sziti.counterfeittopnews.base.BaseSubFragment;
 import com.sziti.counterfeittopnews.widget.pullableview.PullToRefreshLayout;
 import com.sziti.counterfeittopnews.widget.pullableview.PullableRecyclerView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class HomeFocuseFragment extends BaseSubFragment {
     private RecyclerView rv;
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            getSwipeRefreshLayout().refreshFinish(PullToRefreshLayout.SUCCEED,"你关注的人更新了13条消息");
+        }
+    };
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
         super.onFragmentVisibleChange(isVisible);
@@ -31,7 +42,7 @@ public class HomeFocuseFragment extends BaseSubFragment {
         getSwipeRefreshLayout().setOnRefreshListener(new PullToRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
-                pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
+                handler.sendEmptyMessageDelayed(0,3000);
             }
 
             @Override
