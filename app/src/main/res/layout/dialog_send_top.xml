@@ -2,55 +2,110 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:background="#d5d5d5">
+    android:background="#d5d5d5"
+    android:padding="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:background="@drawable/dialog_send_bg"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:background="@drawable/dialog_send_bg">
-    </LinearLayout>
-    <TextView
+        android:orientation="horizontal"/>
+
+    <LinearLayout
         android:id="@+id/send_img_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableTop="@mipmap/ic_launcher"
-        android:gravity="center"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="发图文" />
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <TextView
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:src="@mipmap/mangosteen" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8sp"
+            android:text="发图文" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/little_video"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableTop="@mipmap/ic_launcher"
-        android:gravity="center"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="拍小视频" />
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <TextView
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:src="@mipmap/pomelo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8sp"
+            android:text="拍小视频" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/send_video"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableTop="@mipmap/ic_launcher"
-        android:gravity="center"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="发视频" />
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <TextView
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:src="@mipmap/lemon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8sp"
+            android:text="发视频" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableTop="@mipmap/ic_launcher"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:text="提问" />
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:src="@mipmap/peach" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8sp"
+            android:text="提问" />
+    </LinearLayout>
+
     <ImageView
         android:id="@+id/button"
         android:layout_width="30dp"
