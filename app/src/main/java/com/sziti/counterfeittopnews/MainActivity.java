@@ -67,7 +67,8 @@ public class MainActivity extends BaseFragmentActivity {
                         break;
                     case R.id.rb_xigua_video:
                         Log.e("main", "rb_photo");
-                        novp.setCurrentItem(1, false);
+//                         novp.setCurrentItem(1, false);
+                        novp.setCurrentItem(3, false);
                         break;
                     case R.id.rb_little_video:
                         novp.setCurrentItem(2, false);
