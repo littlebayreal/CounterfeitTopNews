@@ -2,18 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/head_view"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/show_toast"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="@color/main_blue"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="你关注的人有xx条更新" />
-
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -62,5 +52,4 @@
                 android:visibility="gone" />
         </RelativeLayout>
     </RelativeLayout>
-
 </RelativeLayout>

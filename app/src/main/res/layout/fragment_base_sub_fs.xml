@@ -10,7 +10,7 @@
         android:background="#d5d5d5">
 
         <include layout="@layout/refresh_head" />
-
+        <include layout="@layout/refresh_head_show"/>
         <com.sziti.counterfeittopnews.widget.pullableview.PullableRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
