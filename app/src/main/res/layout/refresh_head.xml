@@ -4,18 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/show_toast"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentTop="true"
+        android:background="@color/main_blue"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="你关注的人有xx条更新" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:id="@+id/refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp">
+            android:layout_alignParentBottom="true"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
 
             <ImageView
                 android:id="@+id/pull_icon"
@@ -53,13 +62,5 @@
                 android:visibility="gone" />
         </RelativeLayout>
     </RelativeLayout>
-    <TextView
-        android:id="@+id/show_toast"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/main_blue"
-        android:padding="10dp"
-        android:gravity="center"
-        android:text="你关注的人有xx条更新"
-        android:visibility="gone" />
+
 </RelativeLayout>
