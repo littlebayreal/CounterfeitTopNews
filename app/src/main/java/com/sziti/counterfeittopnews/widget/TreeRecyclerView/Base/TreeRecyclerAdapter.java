@@ -1,5 +1,6 @@
 package com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -151,28 +152,28 @@ public class TreeRecyclerAdapter extends BaseRecyclerAdapter<TreeItem> {
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
         final RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-//        if (layoutManager instanceof GridLayoutManager) {
-//            final GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
-//            final int spanCount = gridLayoutManager.getSpanCount();
-//            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-//                @Override
-//                public int getSpanSize(int position) {
-//                    int i = getItemCount();
-//                    if (i == 0) {
-//                        return spanCount;
-//                    }
-//                    int checkPosition = checkPosition(position);
-//                    if (checkPosition < 0 || checkPosition >= i) {
-//                        return spanCount;
-//                    }
-//                    int itemSpanSize = getItemSpanSize(checkPosition);
-//                    if (itemSpanSize == 0) {
-//                        return spanCount;
-//                    }
-//                    return itemSpanSize;
-//                }
-//            });
-//        }
+        if (layoutManager instanceof GridLayoutManager) {
+            final GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
+            final int spanCount = gridLayoutManager.getSpanCount();
+            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    int i = getItemCount();
+                    if (i == 0) {
+                        return spanCount;
+                    }
+                    int checkPosition = checkPosition(position);
+                    if (checkPosition < 0 || checkPosition >= i) {
+                        return spanCount;
+                    }
+                    int itemSpanSize = getItemSpanSize(checkPosition);
+                    if (itemSpanSize == 0) {
+                        return spanCount;
+                    }
+                    return itemSpanSize;
+                }
+            });
+        }
     }
 
     public int getItemSpanSize(int position) {

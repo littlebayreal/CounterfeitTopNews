@@ -206,6 +206,7 @@ public class MainActivity extends BaseFragmentActivity {
         homeFragment.setTAG("homeFragment");
         fragments.add(homeFragment);
         novp.setAdapter(new HomeViewPagerAdapter(getSupportFragmentManager()));
+
     }
 
     private void initView() {
@@ -214,6 +215,8 @@ public class MainActivity extends BaseFragmentActivity {
         novp.setOffscreenPageLimit(1);
 
         rgHome = findViewById(R.id.rg_home);
+
+        rgHome.check(R.id.rb_home);
     }
 
     class HomeViewPagerAdapter extends FragmentStatePagerAdapter {
