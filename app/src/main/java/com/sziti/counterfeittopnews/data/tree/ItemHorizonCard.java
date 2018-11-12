@@ -1,21 +1,20 @@
 package com.sziti.counterfeittopnews.data.tree;
 
-import android.util.Log;
+import android.widget.ImageView;
 
 import com.sziti.counterfeittopnews.R;
-import com.sziti.counterfeittopnews.data.FocusBottomData;
+import com.sziti.counterfeittopnews.data.FocusHorizonImageData;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.ViewHolder;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Item.TreeItem;
 
-public class FocusBottomTreeItem extends TreeItem<FocusBottomData> {
+public class ItemHorizonCard extends TreeItem<FocusHorizonImageData.FocusHorizonImageItemData> {
     @Override
     protected int initLayoutId() {
-        Log.e("ccc","我也被重新加载了");
-        return R.layout.item_focus_bottom;
+        return R.layout.item_horizon_card;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder) {
-
+        ((ImageView)viewHolder.getView(R.id.item_horizon_card_iv)).setImageDrawable(getData().getHeaderDrawable());
     }
 }

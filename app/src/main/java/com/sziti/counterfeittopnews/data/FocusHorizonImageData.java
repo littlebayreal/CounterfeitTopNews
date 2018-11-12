@@ -4,10 +4,11 @@ import android.graphics.drawable.Drawable;
 
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.BaseItemData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FocusHorizonImageData extends BaseItemData {
-    private List<FocusHorizonImageItemData> list;
+    private List<FocusHorizonImageItemData> list = new ArrayList<>();
 
     public List<FocusHorizonImageItemData> getList() {
         return list;
@@ -17,7 +18,7 @@ public class FocusHorizonImageData extends BaseItemData {
         this.list = list;
     }
 
-    public class FocusHorizonImageItemData {
+    public class FocusHorizonImageItemData extends BaseItemData{
         private String headerUrl;
         private Drawable headerDrawable;
         private String userName;

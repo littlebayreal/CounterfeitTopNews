@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
+    <com.sziti.counterfeittopnews.widget.VerticalRcyclerView
         android:id="@+id/fragment_home_focuse_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
