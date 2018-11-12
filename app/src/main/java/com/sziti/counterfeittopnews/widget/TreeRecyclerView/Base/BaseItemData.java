@@ -11,11 +11,20 @@ public abstract class BaseItemData {
 
     private int viewItemType;
 
+    private int spanSize;
     public void setViewItemType(int viewItemType) {
         this.viewItemType = viewItemType;
     }
 
     public int getViewItemType() {
         return viewItemType;
+    }
+
+    public int getSpanSize() {
+        return spanSize;
+    }
+
+    public void setSpanSize(int spanSize) {
+        this.spanSize = spanSize;
     }
 }

@@ -16,12 +16,12 @@
         android:orientation="horizontal">
 
         <com.sziti.counterfeittopnews.widget.CircleImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:id="@+id/item_focus_title_header"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@mipmap/ic_launcher"
             app:borderColor="#fff"
-            app:borderWidth="1dp"
-            app:hoverColor="#22000000" />
+            app:borderStrokeWidth="1dp" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -31,14 +31,17 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/item_focus_title_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="格斗世界" />
 
             <TextView
+                android:id="@+id/item_focus_title_base_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
+                android:maxLines="1"
                 android:text="6小时前·优质体育领域创作者" />
         </LinearLayout>
 
@@ -50,6 +53,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/item_focus_title_illustration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

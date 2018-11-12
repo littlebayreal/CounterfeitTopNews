@@ -263,6 +263,7 @@ public class PullToRefreshLayout extends RelativeLayout {
                 // 刷新成功
 //                refreshStateImageView.setVisibility(View.VISIBLE);
                 refreshStateTextView.setText(R.string.refresh_succeed);
+                showToast.setText(showText);
 //                refreshStateImageView
 //                        .setBackgroundResource(R.mipmap.refresh_succeed);
                 break;
@@ -271,6 +272,7 @@ public class PullToRefreshLayout extends RelativeLayout {
                 // 刷新失败
 //                refreshStateImageView.setVisibility(View.VISIBLE);
                 refreshStateTextView.setText(R.string.refresh_fail);
+                showToast.setText(showText);
 //                refreshStateImageView
 //                        .setBackgroundResource(R.mipmap.refresh_failed);
                 break;
@@ -284,19 +286,6 @@ public class PullToRefreshLayout extends RelativeLayout {
             changeState(SHOWTOAST);
             hide();
         }
-//        if (pullDownY > 0) {
-//            // 刷新结果停留1秒
-//            new Handler() {
-//                @Override
-//                public void handleMessage(Message msg) {
-//                    changeState(DONE);
-//                    hide();
-//                }
-//            }.sendEmptyMessageDelayed(0, 1000);
-//        } else {
-//            changeState(DONE);
-//            hide();
-//        }
     }
 
     /**

@@ -37,7 +37,6 @@ public class PullableRelativeLayout extends RelativeLayout implements Pullable {
 
     @Override
     public boolean canPullDown() {
-        Log.e("bbbb","rv first positon:"+ ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition() + "rv first top:" + getChildAt(0).getTop());
         if (recyclerView == null) return true;
         if (recyclerView.getAdapter() == null) return true;
         if (recyclerView.getAdapter().getItemCount() == 0) {
@@ -52,8 +51,6 @@ public class PullableRelativeLayout extends RelativeLayout implements Pullable {
 
     @Override
     public boolean canPullUp() {
-//        Log.e("bbbb","findLastVisibleItemPosition:"+((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition());
-//        Log.e("bbbb","itemcount:"+recyclerView.getAdapter().getItemCount());
         if (recyclerView == null) return true;
         if (recyclerView.getAdapter() == null) return true;
         if (recyclerView.getAdapter().getItemCount() == 0) {
@@ -61,8 +58,6 @@ public class PullableRelativeLayout extends RelativeLayout implements Pullable {
             return true;
         }
         else if (((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition() == recyclerView.getAdapter().getItemCount() - 1) {
-            Log.e("bbbb","findLastVisibleItemPosition:"+((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition());
-            Log.e("bbbb","findFirstVisibleItemPosition:"+((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition());
             if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset() >= recyclerView.computeVerticalScrollRange())
                 return true;
         }

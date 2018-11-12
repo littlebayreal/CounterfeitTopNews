@@ -1,9 +1,12 @@
 package com.sziti.counterfeittopnews.data;
 
+import android.graphics.drawable.Drawable;
+
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.BaseItemData;
 
 public class FocusTitleData extends BaseItemData {
      private String headUrl;
+     private Drawable headDrawable;
      private String author;
      private String baseInfo;
      //内容的简介
@@ -16,7 +19,15 @@ public class FocusTitleData extends BaseItemData {
          this.headUrl = headUrl;
      }
 
-     public String getAuthor() {
+    public Drawable getHeadDrawable() {
+        return headDrawable;
+    }
+
+    public void setHeadDrawable(Drawable headDrawable) {
+        this.headDrawable = headDrawable;
+    }
+
+    public String getAuthor() {
          return author;
      }
 

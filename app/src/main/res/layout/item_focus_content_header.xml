@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:background="@drawable/focus_reprint"
+    android:orientation="vertical">
+   <TextView
+       android:id="@+id/item_focus_content_header_tv"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="\@汽车常识:很多老司机也想不通!绿灯直行，为啥出了事故?"/>
+</LinearLayout>

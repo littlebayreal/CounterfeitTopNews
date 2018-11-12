@@ -57,7 +57,6 @@ public class ItemHelperFactory {
                     //初始化其中的child(递归回调 不断初始化child列表)
                     treeItem.setData(itemData);
                     treeItem.setParentItem(treeParentItem);
-                    treeItem.setSpanSize(3);
                     treeItemList.add(treeItem);
                 }
             } catch (Exception e) {
@@ -85,6 +84,7 @@ public class ItemHelperFactory {
                     treeItem = treeItemClass.newInstance();
                     treeItem.setData(itemData);
                     treeItem.setParentItem(treeParentItem);
+                    treeItem.setSpanSize(itemData.getSpanSize());
                     treeItemList.add(treeItem);
                 }
             } catch (Exception e) {
