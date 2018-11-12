@@ -427,8 +427,8 @@ public class PullToRefreshLayout extends RelativeLayout {
                 mEvents = -1;
                 break;
             case MotionEvent.ACTION_MOVE:
-                Log.e("vvv", "canpulldown:" + (((Pullable) pullableView).canPullDown()));
-                Log.e("xxx", "canpullup:" + (((Pullable) pullableView).canPullUp()));
+//                Log.e("vvv", "canpulldown:" + (((Pullable) pullableView).canPullDown()));
+//                Log.e("xxx", "canpullup:" + (((Pullable) pullableView).canPullUp()));
                 //当判断为下拉动作 并且在显示提示栏的情况下就立刻还原初始状态
                 if (ev.getY() - downY < 0 && state == SHOWTOAST) {
                     updateHandler.sendEmptyMessage(3);
@@ -487,6 +487,7 @@ public class PullToRefreshLayout extends RelativeLayout {
                 if ((pullDownY > 0 && state != SHOWTOAST) || (pullUpY < 0 && state != SHOWTOAST)) {
                     requestLayout();
                 }
+                Log.e("hhh","pulldowny:"+ pullDownY);
                 if (pullDownY > 0) {
                     if (pullDownY < refreshDist
                             && (state == RELEASE_TO_REFRESH || state == DONE)) {

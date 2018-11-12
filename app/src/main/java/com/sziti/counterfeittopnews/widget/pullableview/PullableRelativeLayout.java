@@ -37,24 +37,23 @@ public class PullableRelativeLayout extends RelativeLayout implements Pullable {
 
     @Override
     public boolean canPullDown() {
-//        Log.e("bbbb","rv:"+ recyclerView.getId());
+        Log.e("bbbb","rv first positon:"+ ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition() + "rv first top:" + getChildAt(0).getTop());
         if (recyclerView == null) return true;
         if (recyclerView.getAdapter() == null) return true;
         if (recyclerView.getAdapter().getItemCount() == 0) {
             // 没有item的时候也可以下拉刷新
             return true;
-        } else if (((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition() == 0
-                && getChildAt(0).getTop() >= 0) {
+        } else if (((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition() == 0 && recyclerView.getChildAt(0).getTop() >= 0) {
             // 滑到ListView的顶部了
             return true;
-        } else
-            return false;
+        }
+        return false;
     }
 
     @Override
     public boolean canPullUp() {
-        Log.e("bbbb","findLastVisibleItemPosition:"+((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition());
-        Log.e("bbbb","itemcount:"+recyclerView.getAdapter().getItemCount());
+//        Log.e("bbbb","findLastVisibleItemPosition:"+((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition());
+//        Log.e("bbbb","itemcount:"+recyclerView.getAdapter().getItemCount());
         if (recyclerView == null) return true;
         if (recyclerView.getAdapter() == null) return true;
         if (recyclerView.getAdapter().getItemCount() == 0) {
