@@ -20,6 +20,7 @@ import com.sziti.counterfeittopnews.data.tree.FocusBottomTreeItem;
 import com.sziti.counterfeittopnews.data.tree.FocusContentTreeItem;
 import com.sziti.counterfeittopnews.data.tree.FocusHorizonCardItem;
 import com.sziti.counterfeittopnews.data.tree.FocusTitleTreeItem;
+import com.sziti.counterfeittopnews.data.tree.ItemHorizonCard;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.BaseItemData;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.TreeRecyclerAdapter;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Item.TreeItem;
@@ -53,6 +54,7 @@ public class HomeFocuseFragment extends BaseSubFragment {
         ItemConfig.addTreeHolderType(101, FocusContentTreeItem.class);
         ItemConfig.addTreeHolderType(102, FocusBottomTreeItem.class);
         ItemConfig.addTreeHolderType(103, FocusHorizonCardItem.class);
+        ItemConfig.addTreeHolderType(104,ItemHorizonCard.class);
         rv = v.findViewById(R.id.fragment_home_focuse_rv);
 
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);
@@ -68,7 +70,7 @@ public class HomeFocuseFragment extends BaseSubFragment {
     private void initData() {
 
         List<BaseItemData> list = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 50; i++) {
             FocusTitleData focusTitleData = new FocusTitleData();
             focusTitleData.setHeadDrawable(getActivity().getResources().getDrawable(R.drawable.demo_head1));
             focusTitleData.setViewItemType(100);
@@ -115,9 +117,11 @@ public class HomeFocuseFragment extends BaseSubFragment {
             list.add(focusBottomData);
 
             FocusHorizonImageData focusHorizonImageData = new FocusHorizonImageData();
+            focusHorizonImageData.setViewItemType(103);
             for (int j = 0; j < 10; j++) {
                 FocusHorizonImageData.FocusHorizonImageItemData focusHorizonImageItemData = focusHorizonImageData.new FocusHorizonImageItemData();
-                focusHorizonImageItemData.setHeaderDrawable(getResources().getDrawable(R.drawable.demo_venom));
+                focusHorizonImageItemData.setHeaderDrawable(getResources().getDrawable(R.drawable.demo_girl));
+                focusHorizonImageItemData.setViewItemType(104);
                 focusHorizonImageItemData.setUserName("LiTtleBayReal");
                 focusHorizonImageItemData.setIllustration("其实我是一个演员");
                 focusHorizonImageData.getList().add(focusHorizonImageItemData);
