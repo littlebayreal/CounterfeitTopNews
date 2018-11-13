@@ -18,7 +18,6 @@ public class FocusHorizonCardItem extends TreeItem<FocusHorizonImageData>{
     private TreeRecyclerAdapter treeRecyclerAdapter;
     @Override
     protected int initLayoutId() {
-        Log.e("vvv","我被夹在了");
         return R.layout.item_focus_horizon;
     }
 

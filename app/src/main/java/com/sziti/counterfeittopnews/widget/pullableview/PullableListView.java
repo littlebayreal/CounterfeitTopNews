@@ -40,8 +40,7 @@ public class PullableListView extends ListView implements Pullable
 	}
 
 	@Override
-	public boolean canPullUp()
-	{
+	public boolean canPullUp(float x, float y) {
 		if (getCount() == 0)
 		{
 			// 没有item的时候也可以上拉加载
@@ -51,8 +50,8 @@ public class PullableListView extends ListView implements Pullable
 			// 滑到底部了
 			if (getChildAt(getLastVisiblePosition() - getFirstVisiblePosition()) != null
 					&& getChildAt(
-							getLastVisiblePosition()
-									- getFirstVisiblePosition()).getBottom() <= getMeasuredHeight())
+					getLastVisiblePosition()
+							- getFirstVisiblePosition()).getBottom() <= getMeasuredHeight())
 				return true;
 		}
 		return false;

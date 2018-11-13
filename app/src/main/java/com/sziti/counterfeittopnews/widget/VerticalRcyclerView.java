@@ -40,14 +40,14 @@ public class VerticalRcyclerView extends RecyclerView {
                 int dy = (int) Math.abs(e.getY() - lastY);
 
                 Log.e(TAG, "dx:" + dx + "dy:" + dy);
-                if (dx > dy) {
+                if (dx > dy * 0.5) {
                     Log.i(TAG, "横划！交给子控件处理");
                     intercept = false;
-                    requestDisallowInterceptTouchEvent(true);
-                } else if (dy > dx) {
+                } else if (dy * 0.5 > dx) {
                     Log.i(TAG, "竖划！本控件直接拦截处理");
-                    requestDisallowInterceptTouchEvent(false);
                     intercept = true;
+                } else {
+                    intercept = false;
                 }
                 break;
             case MotionEvent.ACTION_UP:
@@ -59,11 +59,5 @@ public class VerticalRcyclerView extends RecyclerView {
                 break;
         }
         return intercept;
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent e) {
-        Log.i(TAG, "我被调用了");
-        return super.onTouchEvent(e);
     }
 }

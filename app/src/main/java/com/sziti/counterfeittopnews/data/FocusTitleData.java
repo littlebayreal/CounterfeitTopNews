@@ -11,6 +11,8 @@ public class FocusTitleData extends BaseItemData {
      private String baseInfo;
      //内容的简介
      private String illustration;
+     private FocusContentData focusContentData;
+     private FocusBottomData focusBottomData;
      public String getHeadUrl() {
          return headUrl;
      }
@@ -50,4 +52,20 @@ public class FocusTitleData extends BaseItemData {
      public void setIllustration(String illustration) {
          this.illustration = illustration;
      }
- }
+
+    public FocusContentData getFocusContentData() {
+        return focusContentData;
+    }
+
+    public void setFocusContentData(FocusContentData focusContentData) {
+        this.focusContentData = focusContentData;
+    }
+
+    public FocusBottomData getFocusBottomData() {
+        return focusBottomData;
+    }
+
+    public void setFocusBottomData(FocusBottomData focusBottomData) {
+        this.focusBottomData = focusBottomData;
+    }
+}

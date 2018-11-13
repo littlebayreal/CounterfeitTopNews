@@ -66,6 +66,35 @@ public class ItemHelperFactory {
         return treeItemList;
     }
     //为文件浏览特别定制的封装item的方法
+    public static List<TreeItem> createFileTreeItemList(List list, Class<? extends TreeItem> iClass,TreeItemGroup treeParentItem){
+        if (null == list) {
+            return null;
+        }
+        ArrayList<TreeItem> treeItemList = new ArrayList<>();
+        int size = list.size();
+        for (int i = 0; i < size; i++) {
+            try {
+                BaseItemData itemData = (BaseItemData) list.get(i);
+                //判断是文件还是文件夹
+                int viewItemType = itemData.getViewItemType();
+                TreeItem treeItem;
+                //判断是否是TreeItem的子类 根据设置的类型初始化相应的文件或者是文件夹
+                if (ItemConfig.getTreeViewHolderType(viewItemType) != null) {
+                    Class<? extends TreeItem> treeItemClass = ItemConfig.getTreeViewHolderType(viewItemType);
+                    treeItem = treeItemClass.newInstance();
+                    treeItem.setData(itemData);
+                    treeItem.setParentItem(treeParentItem);
+                    treeItem.setSpanSize(itemData.getSpanSize());
+                    treeItemList.add(treeItem);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return treeItemList;
+    }
+
+    //为文件浏览特别定制的封装item的方法
     public static List<TreeItem> createFileTreeItemList(List list, TreeItemGroup treeParentItem){
         if (null == list) {
             return null;

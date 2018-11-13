@@ -64,8 +64,8 @@ public abstract class TreeItemGroup<D> extends TreeItem<D> {
         isExpand = true;
         //根据对象查找item在视图中的准确位置
         int itemPosition = getItemManager().getItemPosition(this);
-//        getItemManager().addItems(getItemManager().getAdapter(),itemPosition + 1, getExpandChild());
-        getItemManager().replaceAllItem(getExpandChild());
+        getItemManager().addItems(getItemManager().getAdapter(),itemPosition + 1, getExpandChild());
+//        getItemManager().replaceAllItem(getExpandChild());
     }
 
     /**

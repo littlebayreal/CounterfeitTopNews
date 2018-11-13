@@ -392,10 +392,14 @@ public class PullToRefreshLayout extends RelativeLayout {
      *
      * @see android.view.ViewGroup#dispatchTouchEvent(android.view.MotionEvent)
      */
+    private float lastDownX, lastDownY;
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         switch (ev.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
+                lastDownX = ev.getX();
+                lastDownY = ev.getY();
+
                 downY = ev.getY();
                 lastY = downY;
                 timer.cancel();
@@ -416,6 +420,8 @@ public class PullToRefreshLayout extends RelativeLayout {
                 mEvents = -1;
                 break;
             case MotionEvent.ACTION_MOVE:
+                int dx = (int) Math.abs(ev.getX() - lastDownX);
+                int dy = (int) Math.abs(ev.getY() - lastDownY);
 //                Log.e("vvv", "canpulldown:" + (((Pullable) pullableView).canPullDown()));
 //                Log.e("xxx", "canpullup:" + (((Pullable) pullableView).canPullUp()));
                 //当判断为下拉动作 并且在显示提示栏的情况下就立刻还原初始状态
@@ -446,7 +452,7 @@ public class PullToRefreshLayout extends RelativeLayout {
                             isTouch = true;
                         }
                     } else if (pullUpY < 0 //上拉的判断
-                            || (((Pullable) pullableView).canPullUp() && canPullUp && state != REFRESHING)) {
+                            || (((Pullable) pullableView).canPullUp(dx,dy) && canPullUp && state != REFRESHING)) {
                         //上拉时如果是展示窗口状态  那么直接将窗口状态关闭  整体上移动
 
                         // 可以上拉，正在刷新时不能上拉
@@ -508,6 +514,8 @@ public class PullToRefreshLayout extends RelativeLayout {
                 }
                 break;
             case MotionEvent.ACTION_UP:
+                lastDownX = 0;
+                lastDownY = 0;
                 if (pullDownY > refreshDist || -pullUpY > loadmoreDist)
                 // 正在刷新时往下拉（正在加载时往上拉），释放后下拉头（上拉头）不隐藏
                 {
@@ -531,6 +539,7 @@ public class PullToRefreshLayout extends RelativeLayout {
         }
         // 事件分发交给父类
         super.dispatchTouchEvent(ev);
+        //不分发  直接消费掉
         return true;
     }
 

@@ -13,5 +13,5 @@ public interface Pullable {
 	 * 
 	 * @return true如果可以上拉否则返回false
 	 */
-	boolean canPullUp();
+	boolean canPullUp(float x,float y);
 }

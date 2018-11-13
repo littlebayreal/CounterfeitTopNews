@@ -41,22 +41,18 @@ public class PullableExpandableListView extends ExpandableListView implements
 	}
 
 	@Override
-	public boolean canPullUp()
-	{
-		if (getCount() == 0)
-		{
+	public boolean canPullUp(float x, float y) {
+		if (getCount() == 0) {
 			// 没有item的时候也可以上拉加载
 			return true;
-		} else if (getLastVisiblePosition() == (getCount() - 1))
-		{
+		} else if (getLastVisiblePosition() == (getCount() - 1)) {
 			// 滑到底部了
 			if (getChildAt(getLastVisiblePosition() - getFirstVisiblePosition()) != null
 					&& getChildAt(
-							getLastVisiblePosition()
-									- getFirstVisiblePosition()).getBottom() <= getMeasuredHeight())
+					getLastVisiblePosition()
+							- getFirstVisiblePosition()).getBottom() <= getMeasuredHeight())
 				return true;
 		}
 		return false;
 	}
-
 }

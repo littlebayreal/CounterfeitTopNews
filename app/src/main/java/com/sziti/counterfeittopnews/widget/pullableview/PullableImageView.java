@@ -30,9 +30,7 @@ public class PullableImageView extends ImageView implements Pullable
 	}
 
 	@Override
-	public boolean canPullUp()
-	{
+	public boolean canPullUp(float x, float y) {
 		return true;
 	}
-
 }

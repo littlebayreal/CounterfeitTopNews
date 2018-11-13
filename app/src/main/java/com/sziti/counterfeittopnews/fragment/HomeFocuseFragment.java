@@ -23,6 +23,7 @@ import com.sziti.counterfeittopnews.data.tree.FocusTitleTreeItem;
 import com.sziti.counterfeittopnews.data.tree.ItemHorizonCard;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.BaseItemData;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.TreeRecyclerAdapter;
+import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.TreeRecyclerType;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Item.TreeItem;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.factory.ItemConfig;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.factory.ItemHelperFactory;
@@ -60,7 +61,7 @@ public class HomeFocuseFragment extends BaseSubFragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(layoutManager);
-        treeRecyclerAdapter = new TreeRecyclerAdapter();
+        treeRecyclerAdapter = new TreeRecyclerAdapter(TreeRecyclerType.SHOW_ALL);
         rv.setAdapter(treeRecyclerAdapter);
         initData();
         initListener();
@@ -68,9 +69,8 @@ public class HomeFocuseFragment extends BaseSubFragment {
     }
 
     private void initData() {
-
         List<BaseItemData> list = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 3; i++) {
             FocusTitleData focusTitleData = new FocusTitleData();
             focusTitleData.setHeadDrawable(getActivity().getResources().getDrawable(R.drawable.demo_head1));
             focusTitleData.setViewItemType(100);
@@ -83,14 +83,14 @@ public class HomeFocuseFragment extends BaseSubFragment {
             focusContentData.setType(FocusContentData.ARTICLE);
             focusContentData.setInfo("篮下如何小打大？没错儿！就用它！");
             focusContentData.setShowImageDrawable(getResources().getDrawable(R.drawable.demo_venom));
-            list.add(focusContentData);
+            focusTitleData.setFocusContentData(focusContentData);
 
             FocusBottomData focusBottomData = new FocusBottomData();
             focusBottomData.setViewItemType(102);
             focusBottomData.setReprintTotal(6);
             focusBottomData.setMessageTotal(10);
             focusBottomData.setComplimentTotal(24);
-            list.add(focusBottomData);
+            focusTitleData.setFocusBottomData(focusBottomData);
 
             focusTitleData = new FocusTitleData();
             focusTitleData.setHeadDrawable(getActivity().getResources().getDrawable(R.drawable.demo_head1));
@@ -100,21 +100,19 @@ public class HomeFocuseFragment extends BaseSubFragment {
             focusTitleData.setIllustration("给汽车加油时需要注意这几点，你作对了吗？");
             list.add(focusTitleData);
 
-            for (int j = 0; j < 9; j++) {
-                focusContentData = new FocusContentData();
-                focusContentData.setViewItemType(101);
-                focusContentData.setType(FocusContentData.IMAGE);
-                focusContentData.setShowImageDrawable(getResources().getDrawable(R.drawable.demo_venom));
-                focusContentData.setSpanSize(1);
-                list.add(focusContentData);
-            }
+            focusContentData = new FocusContentData();
+            focusContentData.setViewItemType(101);
+            focusContentData.setType(FocusContentData.IMAGE);
+            focusContentData.setShowImageDrawable(getResources().getDrawable(R.drawable.demo_venom));
+            focusContentData.setSpanSize(3);
+            focusTitleData.setFocusContentData(focusContentData);
 
             focusBottomData = new FocusBottomData();
             focusBottomData.setViewItemType(102);
             focusBottomData.setReprintTotal(6);
             focusBottomData.setMessageTotal(10);
             focusBottomData.setComplimentTotal(24);
-            list.add(focusBottomData);
+            focusTitleData.setFocusBottomData(focusBottomData);
 
             FocusHorizonImageData focusHorizonImageData = new FocusHorizonImageData();
             focusHorizonImageData.setViewItemType(103);
