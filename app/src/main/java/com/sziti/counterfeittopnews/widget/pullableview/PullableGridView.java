@@ -23,7 +23,7 @@ public class PullableGridView extends GridView implements Pullable
 	}
 
 	@Override
-	public boolean canPullDown()
+	public boolean canPullDown(float x,float y)
 	{
 		if (getCount() == 0)
 		{

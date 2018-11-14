@@ -6,7 +6,7 @@ public interface Pullable {
 	 * 
 	 * @return true如果可以下拉否则返回false
 	 */
-	boolean canPullDown();
+	boolean canPullDown(float x,float y);
 
 	/**
 	 * 判断是否可以上拉，如果不需要上拉功能可以直接return false

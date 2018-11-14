@@ -2,6 +2,9 @@ package com.sziti.counterfeittopnews.data.tree;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.sziti.counterfeittopnews.R;
 import com.sziti.counterfeittopnews.data.FocusHorizonImageData;
@@ -23,6 +26,12 @@ public class FocusHorizonCardItem extends TreeItem<FocusHorizonImageData>{
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder) {
+        TextView tv = viewHolder.getView(R.id.item_focus_horizon_tv);
+        ImageView iv = viewHolder.getImageView(R.id.item_focus_horizon_delete);
+        if (getData().getList().get(0).getHorizontType() == FocusHorizonImageData.FocusHorizonImageItemData.HorizonUserCard) {
+            tv.setVisibility(View.GONE);
+            iv.setVisibility(View.GONE);
+        }
         rv = viewHolder.getView(R.id.item_focus_horizon_rv);
         rv.setLayoutManager(new LinearLayoutManager(viewHolder.itemView.getContext(),LinearLayoutManager.HORIZONTAL,false));
         if (treeRecyclerAdapter == null)

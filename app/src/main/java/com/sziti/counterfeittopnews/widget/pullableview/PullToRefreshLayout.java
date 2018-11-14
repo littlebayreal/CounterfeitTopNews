@@ -406,7 +406,7 @@ public class PullToRefreshLayout extends RelativeLayout {
                 mEvents = 0;
                 releasePull();
                 //下拉时候 如果正在显示提示栏
-                if (pullDownY > 0 && (((Pullable) pullableView).canPullDown() && state == SHOWTOAST)) {
+                if (pullDownY > 0 && state == SHOWTOAST) {
                     //停止提示栏滚动动画
                     updateHandler.removeMessages(1);
                     updateHandler.removeMessages(2);
@@ -432,7 +432,7 @@ public class PullToRefreshLayout extends RelativeLayout {
                 if (mEvents == 0) {
                     //内容控件可以下拉，状态不为加载中
                     if (pullDownY > 0
-                            || (((Pullable) pullableView).canPullDown()
+                            || (((Pullable) pullableView).canPullDown(dx,dy)
                             && canPullDown && state != LOADING)) {
                         // 可以下拉，正在加载时不能下拉
                         // 对实际滑动距离做缩小，造成用力拉的感觉、

@@ -36,37 +36,22 @@ public class PullableRelativeLayout extends RelativeLayout implements Pullable {
 
 
     @Override
-    public boolean canPullDown() {
+    public boolean canPullDown(float x,float y) {
         if (recyclerView == null) return true;
         if (recyclerView.getAdapter() == null) return true;
         if (recyclerView.getAdapter().getItemCount() == 0) {
             // 没有item的时候也可以下拉刷新
             return true;
-        } else if (((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition() == 0 && recyclerView.getChildAt(0).getTop() >= 0) {
+        }
+        if (x > y * 0.5) {
+            return false;
+        }
+        if (((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition() == 0 && recyclerView.getChildAt(0).getTop() >= 0) {
             // 滑到ListView的顶部了
             return true;
         }
         return false;
     }
-
-    @Override
-//    public boolean canPullUp() {
-//        if (recyclerView == null) return true;
-//        if (recyclerView.getAdapter() == null) return true;
-//        if (recyclerView.getAdapter().getItemCount() == 0) {
-//            // 没有item的时候也可以上拉加载
-//            return true;
-//        }
-//        int lastPos = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition();
-//        if (lastPos == recyclerView.getAdapter().getItemCount() - 1 && recyclerView.getAdapter().getItemViewType(lastPos) != R.layout.item_focus_horizon) {
-//            if (recyclerView.computeVerticalScrollExtent() + recyclerView.computeVerticalScrollOffset() >= recyclerView.computeVerticalScrollRange())
-//                return true;
-//        }
-//        if (lastPos == recyclerView.getAdapter().getItemCount() - 1 && recyclerView.getAdapter().getItemViewType(lastPos) == R.layout.item_focus_horizon
-//                && isTouchPointInView(recyclerView.getLayoutManager().getChildAt(lastPos)))
-//            //拒绝上拉
-//            return false;
-//    }
     public boolean canPullUp(float x, float y) {
         if (recyclerView == null) return true;
         if (recyclerView.getAdapter() == null) return true;

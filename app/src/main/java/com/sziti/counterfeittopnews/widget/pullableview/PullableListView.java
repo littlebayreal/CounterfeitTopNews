@@ -24,7 +24,7 @@ public class PullableListView extends ListView implements Pullable
 	}
 
 	@Override
-	public boolean canPullDown()
+	public boolean canPullDown(float x,float y)
 	{
 		if (getCount() == 0)
 		{

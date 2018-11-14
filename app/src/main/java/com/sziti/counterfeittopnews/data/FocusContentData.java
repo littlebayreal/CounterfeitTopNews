@@ -4,22 +4,27 @@ import android.graphics.drawable.Drawable;
 
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.BaseItemData;
 
+import java.util.List;
+
 public class FocusContentData extends BaseItemData {
     public static final int VIDEO = 0;
     public static final int IMAGE = 1;
     public static final int ARTICLE = 2;
     //主要用在转载的文案中
-    public static final int Header = 3;
+    public static final int HEADER = 3;
+
+    public static final int REPRINT_VIDEO = 4;
+    public static final int REPRINT_IMAGE = 5;
     private int type;
     //文字介绍
     private String info;
-    //视频 图片 文章 内容地址
+    //视频 图片集合 文章 内容地址
     private String videoUrl;
-    private String imgUrl;
+    private List<String> imgUrl;
     private String article;
 
-    private String showImage;
-    private Drawable showImageDrawable;
+    private List<String> showImage;
+    private List<Drawable> showImageDrawable;
     public int getType() {
         return type;
     }
@@ -44,14 +49,6 @@ public class FocusContentData extends BaseItemData {
         this.videoUrl = videoUrl;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-
     public String getArticle() {
         return article;
     }
@@ -60,19 +57,27 @@ public class FocusContentData extends BaseItemData {
         this.article = article;
     }
 
-    public String getShowImage() {
+    public List<String> getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(List<String> imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public List<String> getShowImage() {
         return showImage;
     }
 
-    public void setShowImage(String showImage) {
+    public void setShowImage(List<String> showImage) {
         this.showImage = showImage;
     }
 
-    public Drawable getShowImageDrawable() {
+    public List<Drawable> getShowImageDrawable() {
         return showImageDrawable;
     }
 
-    public void setShowImageDrawable(Drawable showImageDrawable) {
+    public void setShowImageDrawable(List<Drawable> showImageDrawable) {
         this.showImageDrawable = showImageDrawable;
     }
 }

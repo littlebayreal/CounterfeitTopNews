@@ -25,7 +25,7 @@ public class PullableExpandableListView extends ExpandableListView implements
 	}
 
 	@Override
-	public boolean canPullDown()
+	public boolean canPullDown(float x,float y)
 	{
 		if (getCount() == 0)
 		{

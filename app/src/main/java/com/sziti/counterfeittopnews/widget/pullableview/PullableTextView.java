@@ -24,7 +24,7 @@ public class PullableTextView extends TextView implements Pullable
 	}
 
 	@Override
-	public boolean canPullDown()
+	public boolean canPullDown(float x,float y)
 	{
 		return true;
 	}

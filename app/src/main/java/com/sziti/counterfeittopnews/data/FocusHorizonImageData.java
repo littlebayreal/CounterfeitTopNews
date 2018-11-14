@@ -19,11 +19,13 @@ public class FocusHorizonImageData extends BaseItemData {
     }
 
     public class FocusHorizonImageItemData extends BaseItemData{
+        public static final int HorizonImageCard = 0;
+        public static final int HorizonUserCard = 1;
         private String headerUrl;
         private Drawable headerDrawable;
         private String userName;
         private String illustration;
-
+        private int HorizontType;
         public String getHeaderUrl() {
             return headerUrl;
         }
@@ -54,6 +56,14 @@ public class FocusHorizonImageData extends BaseItemData {
 
         public void setIllustration(String illustration) {
             this.illustration = illustration;
+        }
+
+        public int getHorizontType() {
+            return HorizontType;
+        }
+
+        public void setHorizontType(int horizontType) {
+            HorizontType = horizontType;
         }
     }
 }

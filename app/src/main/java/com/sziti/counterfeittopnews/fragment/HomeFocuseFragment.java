@@ -1,5 +1,6 @@
 package com.sziti.counterfeittopnews.fragment;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -32,6 +33,9 @@ import com.sziti.counterfeittopnews.widget.pullableview.PullToRefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.sziti.counterfeittopnews.data.FocusHorizonImageData.FocusHorizonImageItemData.HorizonImageCard;
+import static com.sziti.counterfeittopnews.data.FocusHorizonImageData.FocusHorizonImageItemData.HorizonUserCard;
+
 public class HomeFocuseFragment extends BaseSubFragment {
     private RecyclerView rv;
     private TreeRecyclerAdapter treeRecyclerAdapter;
@@ -55,7 +59,7 @@ public class HomeFocuseFragment extends BaseSubFragment {
         ItemConfig.addTreeHolderType(101, FocusContentTreeItem.class);
         ItemConfig.addTreeHolderType(102, FocusBottomTreeItem.class);
         ItemConfig.addTreeHolderType(103, FocusHorizonCardItem.class);
-        ItemConfig.addTreeHolderType(104,ItemHorizonCard.class);
+        ItemConfig.addTreeHolderType(104, ItemHorizonCard.class);
         rv = v.findViewById(R.id.fragment_home_focuse_rv);
 
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);
@@ -70,7 +74,22 @@ public class HomeFocuseFragment extends BaseSubFragment {
 
     private void initData() {
         List<BaseItemData> list = new ArrayList<>();
+
         for (int i = 0; i < 3; i++) {
+            FocusHorizonImageData focusHorizonImageData = null;
+            if (i == 0) {
+                focusHorizonImageData = new FocusHorizonImageData();
+                focusHorizonImageData.setViewItemType(103);
+                for (int j = 0; j < 10; j++) {
+                    FocusHorizonImageData.FocusHorizonImageItemData focusHorizonImageItemData = focusHorizonImageData.new FocusHorizonImageItemData();
+                    focusHorizonImageItemData.setHeaderDrawable(getResources().getDrawable(R.drawable.demo_head2));
+                    focusHorizonImageItemData.setViewItemType(104);
+                    focusHorizonImageItemData.setHorizontType(HorizonUserCard);
+                    focusHorizonImageItemData.setUserName("格斗世界");
+                    focusHorizonImageData.getList().add(focusHorizonImageItemData);
+                }
+                list.add(focusHorizonImageData);
+            }
             FocusTitleData focusTitleData = new FocusTitleData();
             focusTitleData.setHeadDrawable(getActivity().getResources().getDrawable(R.drawable.demo_head1));
             focusTitleData.setViewItemType(100);
@@ -82,7 +101,9 @@ public class HomeFocuseFragment extends BaseSubFragment {
             focusContentData.setViewItemType(101);
             focusContentData.setType(FocusContentData.ARTICLE);
             focusContentData.setInfo("篮下如何小打大？没错儿！就用它！");
-            focusContentData.setShowImageDrawable(getResources().getDrawable(R.drawable.demo_venom));
+            List<Drawable> ll = new ArrayList<>();
+            ll.add(getResources().getDrawable(R.drawable.demo_venom));
+            focusContentData.setShowImageDrawable(ll);
             focusTitleData.setFocusContentData(focusContentData);
 
             FocusBottomData focusBottomData = new FocusBottomData();
@@ -93,7 +114,7 @@ public class HomeFocuseFragment extends BaseSubFragment {
             focusTitleData.setFocusBottomData(focusBottomData);
 
             focusTitleData = new FocusTitleData();
-            focusTitleData.setHeadDrawable(getActivity().getResources().getDrawable(R.drawable.demo_head1));
+            focusTitleData.setHeadDrawable(getActivity().getResources().getDrawable(R.drawable.demo_head3));
             focusTitleData.setViewItemType(100);
             focusTitleData.setAuthor("汽车常识");
             focusTitleData.setBaseInfo("11-07 09:23·汽车达人 汽车领域创作者");
@@ -103,8 +124,11 @@ public class HomeFocuseFragment extends BaseSubFragment {
             focusContentData = new FocusContentData();
             focusContentData.setViewItemType(101);
             focusContentData.setType(FocusContentData.IMAGE);
-            focusContentData.setShowImageDrawable(getResources().getDrawable(R.drawable.demo_venom));
-            focusContentData.setSpanSize(3);
+            ll = new ArrayList<>();
+            for (int u = 0; u < 8; u++) {
+                ll.add(getResources().getDrawable(R.drawable.demo_venom));
+            }
+            focusContentData.setShowImageDrawable(ll);
             focusTitleData.setFocusContentData(focusContentData);
 
             focusBottomData = new FocusBottomData();
@@ -114,12 +138,13 @@ public class HomeFocuseFragment extends BaseSubFragment {
             focusBottomData.setComplimentTotal(24);
             focusTitleData.setFocusBottomData(focusBottomData);
 
-            FocusHorizonImageData focusHorizonImageData = new FocusHorizonImageData();
+            focusHorizonImageData = new FocusHorizonImageData();
             focusHorizonImageData.setViewItemType(103);
             for (int j = 0; j < 10; j++) {
                 FocusHorizonImageData.FocusHorizonImageItemData focusHorizonImageItemData = focusHorizonImageData.new FocusHorizonImageItemData();
                 focusHorizonImageItemData.setHeaderDrawable(getResources().getDrawable(R.drawable.demo_girl));
                 focusHorizonImageItemData.setViewItemType(104);
+                focusHorizonImageItemData.setHorizontType(HorizonImageCard);
                 focusHorizonImageItemData.setUserName("LiTtleBayReal");
                 focusHorizonImageItemData.setIllustration("其实我是一个演员");
                 focusHorizonImageData.getList().add(focusHorizonImageItemData);
