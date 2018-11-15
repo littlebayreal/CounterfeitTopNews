@@ -22,6 +22,8 @@ import com.sziti.counterfeittopnews.data.tree.FocusContentTreeItem;
 import com.sziti.counterfeittopnews.data.tree.FocusHorizonCardItem;
 import com.sziti.counterfeittopnews.data.tree.FocusTitleTreeItem;
 import com.sziti.counterfeittopnews.data.tree.ItemHorizonCard;
+import com.sziti.counterfeittopnews.video.base.Jzvd;
+import com.sziti.counterfeittopnews.video.custom.JZMediaIjkplayer;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.BaseItemData;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.TreeRecyclerAdapter;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.TreeRecyclerType;
@@ -49,10 +51,14 @@ public class HomeFocuseFragment extends BaseSubFragment {
     @Override
     protected void onFragmentVisibleChange(boolean isVisible) {
         super.onFragmentVisibleChange(isVisible);
+        //在fragment不可见时释放资源
+        if (!isVisible)
+            Jzvd.releaseAllVideos();
     }
 
     @Override
     public View onCreateSubView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Jzvd.setMediaInterface(new JZMediaIjkplayer());
         View v = inflater.inflate(R.layout.fragment_home_focuse, container, false);
 
         ItemConfig.addTreeHolderType(100, FocusTitleTreeItem.class);
@@ -76,9 +82,9 @@ public class HomeFocuseFragment extends BaseSubFragment {
         List<BaseItemData> list = new ArrayList<>();
 
         for (int i = 0; i < 3; i++) {
-            FocusHorizonImageData focusHorizonImageData = null;
+            /*显示关注用户*/
             if (i == 0) {
-                focusHorizonImageData = new FocusHorizonImageData();
+                FocusHorizonImageData focusHorizonImageData = new FocusHorizonImageData();
                 focusHorizonImageData.setViewItemType(103);
                 for (int j = 0; j < 10; j++) {
                     FocusHorizonImageData.FocusHorizonImageItemData focusHorizonImageItemData = focusHorizonImageData.new FocusHorizonImageItemData();
@@ -90,6 +96,7 @@ public class HomeFocuseFragment extends BaseSubFragment {
                 }
                 list.add(focusHorizonImageData);
             }
+            /*模拟文章数据*/
             FocusTitleData focusTitleData = new FocusTitleData();
             focusTitleData.setHeadDrawable(getActivity().getResources().getDrawable(R.drawable.demo_head1));
             focusTitleData.setViewItemType(100);
@@ -113,6 +120,40 @@ public class HomeFocuseFragment extends BaseSubFragment {
             focusBottomData.setComplimentTotal(24);
             focusTitleData.setFocusBottomData(focusBottomData);
 
+            /*模拟视频数据*/
+            focusTitleData = new FocusTitleData();
+            focusTitleData.setHeadDrawable(getActivity().getResources().getDrawable(R.drawable.demo_head4));
+            focusTitleData.setViewItemType(100);
+            focusTitleData.setAuthor("我是郭杰瑞");
+            focusTitleData.setBaseInfo("4小时前·知名搞笑领域创作者");
+            focusTitleData.setIllustration("奢侈品牌Tiffany卖下午茶，1000元吃一顿饭值得吗？");
+            list.add(focusTitleData);
+
+
+            focusContentData = new FocusContentData();
+            focusContentData.setViewItemType(101);
+            focusContentData.setType(FocusContentData.VIDEO);
+            if (i == 0)
+                focusContentData.setVideoUrl("http://jzvd.nathen.cn/6ea7357bc3fa4658b29b7933ba575008/fbbba953374248eb913cb1408dc61d85-5287d2089db37e62345123a1be272f8b.mp4");
+            if (i == 1)
+                focusContentData.setVideoUrl("http://jzvd.nathen.cn/35b3dc97fbc240219961bd1fccc6400b/8d9b76ab5a584bce84a8afce012b72d3-5287d2089db37e62345123a1be272f8b.mp4");
+            if (i == 2)
+                focusContentData.setVideoUrl("http://jzvd.nathen.cn/df6096e7878541cbbea3f7298683fbed/ef76450342914427beafe9368a4e0397-5287d2089db37e62345123a1be272f8b.mp4");
+
+            ll = new ArrayList<>();
+            ll.add(getResources().getDrawable(R.drawable.demo_girl));
+            focusContentData.setShowImageDrawable(ll);
+            focusTitleData.setFocusContentData(focusContentData);
+
+            focusBottomData = new FocusBottomData();
+            focusBottomData.setViewItemType(102);
+            focusBottomData.setReprintTotal(6);
+            focusBottomData.setMessageTotal(10);
+            focusBottomData.setComplimentTotal(24);
+            focusTitleData.setFocusBottomData(focusBottomData);
+
+
+            /*模拟多张图片数据*/
             focusTitleData = new FocusTitleData();
             focusTitleData.setHeadDrawable(getActivity().getResources().getDrawable(R.drawable.demo_head3));
             focusTitleData.setViewItemType(100);
@@ -138,7 +179,34 @@ public class HomeFocuseFragment extends BaseSubFragment {
             focusBottomData.setComplimentTotal(24);
             focusTitleData.setFocusBottomData(focusBottomData);
 
-            focusHorizonImageData = new FocusHorizonImageData();
+            /*模拟多张图片转发*/
+            focusTitleData = new FocusTitleData();
+            focusTitleData.setHeadDrawable(getActivity().getResources().getDrawable(R.drawable.demo_head3));
+            focusTitleData.setViewItemType(100);
+            focusTitleData.setAuthor("汽车常识");
+            focusTitleData.setBaseInfo("11-07 09:23·汽车达人 汽车领域创作者");
+            focusTitleData.setIllustration("给汽车加油时需要注意这几点，你作对了吗？");
+            list.add(focusTitleData);
+
+            focusContentData = new FocusContentData();
+            focusContentData.setViewItemType(101);
+            focusContentData.setType(FocusContentData.REPRINT_IMAGE);
+            ll = new ArrayList<>();
+            for (int u = 0; u < 8; u++) {
+                ll.add(getResources().getDrawable(R.drawable.demo_head3));
+            }
+            focusContentData.setShowImageDrawable(ll);
+            focusTitleData.setFocusContentData(focusContentData);
+
+            focusBottomData = new FocusBottomData();
+            focusBottomData.setViewItemType(102);
+            focusBottomData.setReprintTotal(6);
+            focusBottomData.setMessageTotal(10);
+            focusBottomData.setComplimentTotal(24);
+            focusTitleData.setFocusBottomData(focusBottomData);
+
+            /*模拟他们也在用*/
+            FocusHorizonImageData focusHorizonImageData = new FocusHorizonImageData();
             focusHorizonImageData.setViewItemType(103);
             for (int j = 0; j < 10; j++) {
                 FocusHorizonImageData.FocusHorizonImageItemData focusHorizonImageItemData = focusHorizonImageData.new FocusHorizonImageItemData();
@@ -166,6 +234,17 @@ public class HomeFocuseFragment extends BaseSubFragment {
             @Override
             public void onLoadMore(PullToRefreshLayout pullToRefreshLayout) {
                 pullToRefreshLayout.loadmoreFinish(PullToRefreshLayout.SUCCEED);
+            }
+        });
+        rv.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(View view) {
+                Jzvd.onChildViewAttachedToWindow(view, R.id.item_focus_content_jzvdstd);
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(View view) {
+                Jzvd.onChildViewDetachedFromWindow(view);
             }
         });
     }

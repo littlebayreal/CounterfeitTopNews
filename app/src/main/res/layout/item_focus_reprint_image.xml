@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/focus_reprint"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/item_focus_reprint_image_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="\@Excel大全:职场常见问题:Excel中，怎么绘制斜线表头，
+单斜线？双斜线？符合表头？很简单，但斜线表头.." />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/item_focus_reprint_image_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
+</LinearLayout>
