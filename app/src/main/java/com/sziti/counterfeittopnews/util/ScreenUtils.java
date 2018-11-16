@@ -9,10 +9,24 @@ public class ScreenUtils {
     public static int getScreenHeight(Context context) {
         return context.getResources().getDisplayMetrics().heightPixels;
     }
+
     /**
      * 获取屏幕宽度(px)
      */
     public static int getScreenWidth(Context context) {
         return context.getResources().getDisplayMetrics().widthPixels;
+    }
+
+    /**
+     * 获取屏幕状态栏高度
+     * @param context
+     */
+    public static int getStateBar(Context context) {
+        int result = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 }

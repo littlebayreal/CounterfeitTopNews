@@ -52,15 +52,6 @@ public class FocusContentTreeItem extends TreeItem<FocusContentData> {
                 ((TextView) viewHolder.getView(R.id.item_focus_content_header_tv)).setText(getData().getInfo());
                 break;
             case FocusContentData.VIDEO:
-                Log.e("zxc",getData().getVideoUrl());
-
-//                JZDataSource jzDataSource = null;
-//                try {
-//                    jzDataSource = new JZDataSource(viewHolder.itemView.getContext().getAssets().openFd("local_video.mp4"));
-//                    jzDataSource.title = "饺子快长大";
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
                 //点击播放的视频
                 ((JzvdStd)viewHolder.getView(R.id.item_focus_content_jzvdstd)).setUp(getData().getVideoUrl(),getData().getInfo(),Jzvd.SCREEN_WINDOW_LIST);
                 ((JzvdStd)viewHolder.getView(R.id.item_focus_content_jzvdstd)).thumbImageView.setImageDrawable(getData().getShowImageDrawable().get(0));

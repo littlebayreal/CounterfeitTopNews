@@ -10,7 +10,6 @@ import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Item.TreeItem;
 public class FocusBottomTreeItem extends TreeItem<FocusBottomData> {
     @Override
     protected int initLayoutId() {
-        Log.e("ccc","我也被重新加载了");
         return R.layout.item_focus_bottom;
     }
 
