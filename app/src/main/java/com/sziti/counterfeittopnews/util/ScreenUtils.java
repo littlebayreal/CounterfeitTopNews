@@ -19,6 +19,7 @@ public class ScreenUtils {
 
     /**
      * 获取屏幕状态栏高度
+     *
      * @param context
      */
     public static int getStateBar(Context context) {
@@ -28,5 +29,13 @@ public class ScreenUtils {
             result = context.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    /**
+     * dp转换成px
+     */
+    public static int dp2px(Context context, float dpValue) {
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 }

@@ -56,7 +56,12 @@ public abstract class TreeItemGroup<D> extends TreeItem<D> {
     public void notifyExpand() {
         setExpand(isExpand);
     }
+    /**
+     * 点击后全部替换
+     */
+    protected void onReplace(){
 
+    }
     /**
      * 展开
      */
@@ -65,7 +70,6 @@ public abstract class TreeItemGroup<D> extends TreeItem<D> {
         //根据对象查找item在视图中的准确位置
         int itemPosition = getItemManager().getItemPosition(this);
         getItemManager().addItems(getItemManager().getAdapter(),itemPosition + 1, getExpandChild());
-//        getItemManager().replaceAllItem(getExpandChild());
     }
 
     /**

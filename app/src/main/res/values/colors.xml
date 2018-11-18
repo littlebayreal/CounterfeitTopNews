@@ -12,4 +12,5 @@
     <color name="placeholder_gray">#949494</color>
     <color name="green"> #008000</color>
     <color name="red">#fc0d1b</color>
+    <color name="vifrification">#00000000</color>   <!-- 透明 -->
 </resources>

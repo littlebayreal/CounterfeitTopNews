@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.sziti.counterfeittopnews.Cons;
 import com.sziti.counterfeittopnews.R;
 import com.sziti.counterfeittopnews.base.BaseSubFragment;
 import com.sziti.counterfeittopnews.data.FocusBottomData;
@@ -102,6 +103,11 @@ public class HomeFocuseFragment extends BaseSubFragment {
             focusTitleData.setViewItemType(100);
             focusTitleData.setAuthor("野球帝");
             focusTitleData.setBaseInfo("11-11 10:19·深圳克拉托斯体育有限公司品牌经理 优质体育领域创作人");
+            FocusTitleData.DeleteOption deleteOption = focusTitleData.new DeleteOption();
+            deleteOption.setShowOption(Cons.DELETE_TWO);
+            deleteOption.setShowInfo(Cons.DELETE_TWO_INFO);
+            deleteOption.setShowSubOption(Cons.DELETE_TWO_SUB_ITEM);
+            focusTitleData.setDeleteOption(deleteOption);
             list.add(focusTitleData);
 
             FocusContentData focusContentData = new FocusContentData();

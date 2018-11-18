@@ -3,6 +3,7 @@ package com.sziti.counterfeittopnews.widget;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,7 @@ public class ReportDialog extends Dialog {
     private int gravity;
     private boolean cancelTouchout;
     private View view;
-
+    private int direction;
     private ReportDialog(Builder builder) {
         super(builder.context);
         context = builder.context;
@@ -32,6 +33,7 @@ public class ReportDialog extends Dialog {
         gravity = builder.gravity;
         cancelTouchout = builder.cancelTouchout;
         view = builder.view;
+        direction = builder.direction;
     }
 
     private ReportDialog(Builder builder, int resStyle) {
@@ -45,8 +47,22 @@ public class ReportDialog extends Dialog {
         gravity = builder.gravity;
         cancelTouchout = builder.cancelTouchout;
         view = builder.view;
+        direction = builder.direction;
     }
-
+    /**
+     * 通过viewId获取控件
+     *
+     * @param viewId
+     * @return
+     */
+    public <T extends View> T getView(int viewId) {
+        View v = null;
+        if (null != view) {
+            v = view.findViewById(viewId);
+        }
+        return (T)v ;
+    }
+    //设置窗口显示
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,19 +75,36 @@ public class ReportDialog extends Dialog {
         lp.width = width;
         lp.x = x;
         lp.y = y;
-        lp.alpha = alpha;
+//        lp.alpha = alpha;
+        if (direction == 0) {
+            win.setWindowAnimations(R.style.dialogWindowAnim); //设置窗口弹出动画
+            win.setBackgroundDrawableResource(R.color.vifrification); //设置对话框背景为透明
+        }else{
+            win.setWindowAnimations(R.style.dialogWindowAnimReverse); //设置窗口弹出动画
+            win.setBackgroundDrawableResource(R.color.vifrification); //设置对话框背景为透明
+        }
         win.setAttributes(lp);
+    }
+    /**
+     * 设置 dialog的高度
+     */
+    public void setDialogHeight(int height) {
+        WindowManager.LayoutParams p = getWindow().getAttributes();  //获取对话框当前的参数值
+        p.height = height;//设置为当前屏幕高度的一半
+        getWindow().setAttributes(p);     //设置生效
     }
 
     public static final class Builder {
         private Context context;
         private int height, width;
         private int x,y;
-        private float alpha = 100;
+        private float alpha = 0;
         private int gravity;
-        private boolean cancelTouchout;
+        private boolean cancelTouchout = true;
         private View view;
         private int resStyle = -1;
+        //0为正 1为反
+        private int direction = 0;
 
         public Builder(Context context) {
             this.context = context;
@@ -96,13 +129,14 @@ public class ReportDialog extends Dialog {
             v.getLocationOnScreen(delete_location);
             int screenHeight = ScreenUtils.getScreenHeight(context);
             int screenWidth = ScreenUtils.getScreenWidth(context);
-            int offsetWidth = screenWidth - delete_location[0] - v.getMeasuredWidth();
+//            int offsetWidth = screenWidth - delete_location[0] - v.getMeasuredWidth();
             int offsetHeight = 0;
             if (delete_location[1] < screenHeight/2){
-                offsetHeight = delete_location[1] - ScreenUtils.getStateBar(context) + v.getMeasuredHeight() + 10;
+                offsetHeight = delete_location[1] - ScreenUtils.getStateBar(context) + v.getMeasuredHeight();
+                direction = 1;
             }else {
-                offsetHeight = delete_location[1] - 500 - ScreenUtils.getStateBar(context) - 10;
-
+                offsetHeight = delete_location[1] - 500 - ScreenUtils.getStateBar(context);
+                direction = 0;
             }
             gravity = Gravity.TOP;
 //            x = offsetWidth;

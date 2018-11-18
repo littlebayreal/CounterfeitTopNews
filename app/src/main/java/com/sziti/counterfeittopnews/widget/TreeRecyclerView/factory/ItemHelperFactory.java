@@ -66,6 +66,30 @@ public class ItemHelperFactory {
         }
         return treeItemList;
     }
+    //bean数据封装成树状的item队列
+    public static List<TreeItem> createTreeItemObjectList(List list, Class<? extends TreeItem> iClass, TreeItemGroup treeParentItem) {
+        if (null == list) {
+            return null;
+        }
+        int size = list.size();
+        ArrayList<TreeItem> treeItemList = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            try {
+                //省市区的所有数据
+                Object itemData = list.get(i);
+                if (iClass != null) {
+                    TreeItem treeItem = iClass.newInstance();
+                    //初始化其中的child(递归回调 不断初始化child列表)
+                    treeItem.setData(itemData);
+                    treeItem.setParentItem(treeParentItem);
+                    treeItemList.add(treeItem);
+                }
+            } catch (Exception e) {
+                //e.printStackTrace();
+            }
+        }
+        return treeItemList;
+    }
     //为文件浏览特别定制的封装item的方法
     public static List<TreeItem> createFileTreeItemList(List list, Class<? extends TreeItem> iClass,TreeItemGroup treeParentItem){
         if (null == list) {
