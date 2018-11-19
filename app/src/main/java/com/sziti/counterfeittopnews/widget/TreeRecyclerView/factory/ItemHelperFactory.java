@@ -1,6 +1,8 @@
 package com.sziti.counterfeittopnews.widget.TreeRecyclerView.factory;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
+
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.BaseItemData;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.TreeRecyclerType;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Item.TreeItem;
@@ -61,7 +63,8 @@ public class ItemHelperFactory {
                     treeItemList.add(treeItem);
                 }
             } catch (Exception e) {
-                //e.printStackTrace();
+                Log.e("aaa",e.toString());
+                e.printStackTrace();
             }
         }
         return treeItemList;

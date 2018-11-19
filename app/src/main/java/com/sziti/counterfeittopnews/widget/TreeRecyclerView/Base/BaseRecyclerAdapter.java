@@ -24,6 +24,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Log.e("zcc","重新载入layout:"+ viewType);
         ViewHolder holder = ViewHolder.createViewHolder(parent, viewType);
         onBindViewHolderClick(holder, holder.itemView);
         return holder;

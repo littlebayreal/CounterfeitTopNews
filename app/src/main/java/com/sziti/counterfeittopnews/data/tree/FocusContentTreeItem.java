@@ -74,7 +74,6 @@ public class FocusContentTreeItem extends TreeItem<FocusContentData> {
                     list.add(imageData);
                 }
                 treeRecyclerAdapter.setDatas(ItemHelperFactory.createTreeItemList(list, ImageItem.class, null));
-                treeRecyclerAdapter.notifyDataSetChanged();
                 break;
             case FocusContentData.REPRINT_IMAGE:
                 rv = viewHolder.getView(R.id.item_focus_reprint_image_rv);
@@ -90,7 +89,6 @@ public class FocusContentTreeItem extends TreeItem<FocusContentData> {
                     imageDataList.add(imageData);
                 }
                 treeRecyclerAdapter.setDatas(ItemHelperFactory.createTreeItemList(imageDataList, ImageItem.class, null));
-                treeRecyclerAdapter.notifyDataSetChanged();
                 break;
         }
     }

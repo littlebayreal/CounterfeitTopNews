@@ -1,10 +1,5 @@
 package com.sziti.counterfeittopnews.widget.TreeRecyclerView.Item;
-
-import android.support.annotation.Nullable;
 import android.util.Log;
-
-import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.TreeRecyclerType;
-import com.sziti.counterfeittopnews.widget.TreeRecyclerView.factory.ItemHelperFactory;
 
 import java.util.List;
 

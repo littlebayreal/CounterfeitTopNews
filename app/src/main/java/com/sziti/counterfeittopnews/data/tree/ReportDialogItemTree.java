@@ -13,14 +13,14 @@ import com.sziti.counterfeittopnews.widget.TreeRecyclerView.factory.ItemHelperFa
 
 import java.util.List;
 
-class ReportDialogItemTree extends TreeItem<ReportDialogData.ReportDialogItemData> {
+public class ReportDialogItemTree extends TreeItem<ReportDialogData.ReportDialogItemData> {
     @Override
     protected int initLayoutId() {
-        switch (getData().getType()){
+        switch (getData().getType()) {
             case ReportDialogData.ReportDialogItemData.TYPE_TITLE:
                 return R.layout.sub_title_report_dialog;
-                case ReportDialogData.ReportDialogItemData.TYPE_CONTENT:
-                    return R.layout.sub_item_report_dialog;
+            case ReportDialogData.ReportDialogItemData.TYPE_CONTENT:
+                return R.layout.sub_item_report_dialog;
         }
         return R.layout.sub_item_report_dialog;
     }
@@ -32,15 +32,15 @@ class ReportDialogItemTree extends TreeItem<ReportDialogData.ReportDialogItemDat
                 viewHolder.getView(R.id.sub_title_report_dialog_return).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                       if (getData().getOnClickListener() != null)
-                           getData().getOnClickListener().onClick(view);
+                        if (getData().getOnClickListener() != null)
+                            getData().getOnClickListener().onClick(view);
                     }
                 });
                 ((TextView) viewHolder.getView(R.id.sub_title_report_dialog_tv)).setText(getData().getShowSubOption());
                 break;
             case ReportDialogData.ReportDialogItemData.TYPE_CONTENT:
-            ((TextView) viewHolder.getView(R.id.sub_item_report_dialog_tv)).setText(getData().getShowSubOption());
-            break;
+                ((TextView) viewHolder.getView(R.id.sub_item_report_dialog_tv)).setText(getData().getShowSubOption());
+                break;
         }
     }
 }

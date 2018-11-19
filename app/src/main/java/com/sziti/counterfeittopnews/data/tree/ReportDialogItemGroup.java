@@ -17,7 +17,7 @@ import com.sziti.counterfeittopnews.widget.TreeRecyclerView.factory.ItemHelperFa
 import java.util.ArrayList;
 import java.util.List;
 
-class ReportDialogItemGroup extends TreeItemReplaceGroup<ReportDialogData> {
+public class ReportDialogItemGroup extends TreeItemReplaceGroup<ReportDialogData> {
     @Override
     protected List<TreeItem> initChildList(ReportDialogData data) {
         if (data.getShowSubOption() == null || data.getShowSubOption().size() <= 0)
