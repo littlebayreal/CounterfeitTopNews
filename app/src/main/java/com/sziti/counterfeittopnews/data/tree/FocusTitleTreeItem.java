@@ -13,6 +13,7 @@ import com.sziti.counterfeittopnews.widget.CircleImageView;
 import com.sziti.counterfeittopnews.widget.ReportDialog;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.BaseRecyclerAdapter;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.TreeRecyclerAdapter;
+import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.TreeRecyclerType;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.ViewHolder;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Item.TreeItem;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Item.TreeItemGroup;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FocusTitleTreeItem extends TreeItemGroup<FocusTitleData> {
+    private ReportDialogItemGroup old;
+    private List<TreeItem> ll;
     @Override
     protected List<TreeItem> initChildList(FocusTitleData data) {
         //进行子类 内容 以及 底部的数据初始化
@@ -77,10 +80,11 @@ public class FocusTitleTreeItem extends TreeItemGroup<FocusTitleData> {
                         ReportDialogData.ReportDialogItemData reportDialogItemData = dialogData.new ReportDialogItemData();
                         reportDialogItemData.setShowSubOption(dialogData.getShowOption());
                         reportDialogItemData.setType(ReportDialogData.ReportDialogItemData.TYPE_TITLE);
+                        //返回按钮
                         reportDialogItemData.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                List<TreeItem> ll = ItemHelperFactory.createTreeItemList(list, ReportDialogItemGroup.class, null);
+                                ll = ItemHelperFactory.createTreeItemList(list, ReportDialogItemGroup.class, null);
                                 treeRecyclerAdapter.setDatas(ll);
                                 treeRecyclerAdapter.notifyDataSetChanged();
                                 int heightpx = ScreenUtils.dp2px(viewHolder.itemView.getContext(), ll.size() * 60);
@@ -101,13 +105,16 @@ public class FocusTitleTreeItem extends TreeItemGroup<FocusTitleData> {
                 treeRecyclerAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(ViewHolder viewHolder, int position) {
-                        int heightpx = ScreenUtils.dp2px(viewHolder.itemView.getContext(), list.get(position).getShowSubOption().size() * 40);
-                        reportDialog.setDialogHeight(heightpx);
+                        if (ll.get(position) instanceof TreeItemGroup) {
+                            if (list.get(position).getShowSubOption() == null) return;
+                            ll = ItemHelperFactory.getChildItemsWithType((TreeItemGroup) ll.get(position), TreeRecyclerType.SHOW_ALL);
+                            int heightpx = ScreenUtils.dp2px(viewHolder.itemView.getContext(), list.get(position).getShowSubOption().size() * 40);
+                            reportDialog.setDialogHeight(heightpx);
+                        }
                     }
                 });
-                List<TreeItem> ll = ItemHelperFactory.createTreeItemList(list,ReportDialogItemGroup.class,null);
+                ll = ItemHelperFactory.createTreeItemList(list,ReportDialogItemGroup.class,null);
                 treeRecyclerAdapter.setDatas(ll);
-                treeRecyclerAdapter.notifyDataSetChanged();
             }
         });
     }

@@ -26,6 +26,11 @@ public abstract class TreeItemGroup<D> extends TreeItem<D> {
      */
     private boolean isExpand;
 
+    /**
+     *
+     * @return
+     */
+    private boolean isCanExpand;
 
     public boolean isExpand() {
         return isExpand;
@@ -56,12 +61,7 @@ public abstract class TreeItemGroup<D> extends TreeItem<D> {
     public void notifyExpand() {
         setExpand(isExpand);
     }
-    /**
-     * 点击后全部替换
-     */
-    protected void onReplace(){
 
-    }
     /**
      * 展开
      */
@@ -87,9 +87,12 @@ public abstract class TreeItemGroup<D> extends TreeItem<D> {
      * @return
      */
     public boolean isCanExpand() {
-        return true;
+        return isCanExpand;
     }
 
+    public void setCanExpand(boolean isCanExpand){
+        this.isCanExpand = isCanExpand;
+    }
 
     /**
      * 获得所有childs,包括子item的childs

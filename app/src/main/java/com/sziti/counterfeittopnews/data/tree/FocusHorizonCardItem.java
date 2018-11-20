@@ -51,15 +51,11 @@ public class FocusHorizonCardItem extends TreeItem<FocusHorizonImageData> {
 //                treeRecyclerAdapter = new TreeRecyclerAdapter(TreeRecyclerType.SHOW_ALL);
 //                rv.setAdapter(treeRecyclerAdapter);
 //            }
+            rv.setAdapter(treeRecyclerAdapter);
             Log.e("zoo","position:"+ viewHolder.getLayoutPosition());
 //            Log.e("zoo","horizontype:"+ getData().getList().get(0).getHorizontType());
             List<TreeItem> list = ItemHelperFactory.createTreeItemList(getData().getList(), ItemHorizonCard.class, null);
 //            Log.e("zoo","horizontype:"+ ((FocusHorizonImageData.FocusHorizonImageItemData)list.get(0).getData()).getHorizontType());
-            if (viewHolder.getLayoutPosition() == 0){
-                for (TreeItem t:list){
-                    ((FocusHorizonImageData.FocusHorizonImageItemData)t.getData()).setHorizontType(1);
-                }
-            }
             treeRecyclerAdapter.setDatas(list);
             treeRecyclerAdapter.notifyDataSetChanged();
         }

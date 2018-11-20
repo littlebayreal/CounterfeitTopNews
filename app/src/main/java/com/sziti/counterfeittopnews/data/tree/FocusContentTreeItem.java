@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FocusContentTreeItem extends TreeItem<FocusContentData> {
+    private RecyclerView rv = null;
+    private TreeRecyclerAdapter treeRecyclerAdapter = null;
     @Override
     protected int initLayoutId() {
         switch (getData().getType()) {
@@ -45,8 +47,7 @@ public class FocusContentTreeItem extends TreeItem<FocusContentData> {
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder) {
-        RecyclerView rv = null;
-        TreeRecyclerAdapter treeRecyclerAdapter = null;
+
         switch (getData().getType()) {
             case FocusContentData.HEADER:
                 ((TextView) viewHolder.getView(R.id.item_focus_content_header_tv)).setText(getData().getInfo());
@@ -61,34 +62,45 @@ public class FocusContentTreeItem extends TreeItem<FocusContentData> {
                 ((ImageView) viewHolder.getView(R.id.item_focus_content_article_right)).setImageDrawable(getData().getShowImageDrawable().get(0));
                 break;
             case FocusContentData.IMAGE:
-                rv = viewHolder.getView(R.id.item_focus_content_image_rv);
-                rv.setLayoutManager(new GridLayoutManager(viewHolder.itemView.getContext(), 3));
-                treeRecyclerAdapter = new TreeRecyclerAdapter(TreeRecyclerType.SHOW_ALL);
-                rv.setAdapter(treeRecyclerAdapter);
-
-                List<ImageData> list = new ArrayList<>();
-                for (int i = 0; i < getData().getShowImageDrawable().size(); i++) {
-                    ImageData imageData = new ImageData();
-                    imageData.setShowImage(getData().getShowImageDrawable().get(i));
-                    imageData.setSpanSize(1);
-                    list.add(imageData);
+                if (rv == null) {
+                    rv = viewHolder.getView(R.id.item_focus_content_image_rv);
+                    rv.setLayoutManager(new GridLayoutManager(viewHolder.itemView.getContext(), 3));
                 }
-                treeRecyclerAdapter.setDatas(ItemHelperFactory.createTreeItemList(list, ImageItem.class, null));
+                if (treeRecyclerAdapter == null) {
+                    treeRecyclerAdapter = new TreeRecyclerAdapter(TreeRecyclerType.SHOW_ALL);
+                }
+                if (rv != null && treeRecyclerAdapter != null) {
+                    rv.setAdapter(treeRecyclerAdapter);
+                    List<ImageData> list = new ArrayList<>();
+                    for (int i = 0; i < getData().getShowImageDrawable().size(); i++) {
+                        ImageData imageData = new ImageData();
+                        imageData.setShowImage(getData().getShowImageDrawable().get(i));
+                        imageData.setSpanSize(1);
+                        list.add(imageData);
+                    }
+                    treeRecyclerAdapter.setDatas(ItemHelperFactory.createTreeItemList(list, ImageItem.class, null));
+                }
                 break;
             case FocusContentData.REPRINT_IMAGE:
-                rv = viewHolder.getView(R.id.item_focus_reprint_image_rv);
-                rv.setLayoutManager(new GridLayoutManager(viewHolder.itemView.getContext(), 3));
-                treeRecyclerAdapter = new TreeRecyclerAdapter(TreeRecyclerType.SHOW_ALL);
-                rv.setAdapter(treeRecyclerAdapter);
-
-                List<ImageData> imageDataList = new ArrayList<>();
-                for (int i = 0; i < getData().getShowImageDrawable().size(); i++) {
-                    ImageData imageData = new ImageData();
-                    imageData.setShowImage(getData().getShowImageDrawable().get(i));
-                    imageData.setSpanSize(1);
-                    imageDataList.add(imageData);
+                if (rv == null) {
+                    rv = viewHolder.getView(R.id.item_focus_reprint_image_rv);
+                    rv.setLayoutManager(new GridLayoutManager(viewHolder.itemView.getContext(), 3));
                 }
-                treeRecyclerAdapter.setDatas(ItemHelperFactory.createTreeItemList(imageDataList, ImageItem.class, null));
+                if (treeRecyclerAdapter == null) {
+                    treeRecyclerAdapter = new TreeRecyclerAdapter(TreeRecyclerType.SHOW_ALL);
+                    rv.setAdapter(treeRecyclerAdapter);
+                }
+                if (rv != null && treeRecyclerAdapter != null) {
+                    rv.setAdapter(treeRecyclerAdapter);
+                    List<ImageData> imageDataList = new ArrayList<>();
+                    for (int i = 0; i < getData().getShowImageDrawable().size(); i++) {
+                        ImageData imageData = new ImageData();
+                        imageData.setShowImage(getData().getShowImageDrawable().get(i));
+                        imageData.setSpanSize(1);
+                        imageDataList.add(imageData);
+                    }
+                    treeRecyclerAdapter.setDatas(ItemHelperFactory.createTreeItemList(imageDataList, ImageItem.class, null));
+                }
                 break;
         }
     }

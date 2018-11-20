@@ -20,14 +20,17 @@ import java.util.List;
 public class ReportDialogItemGroup extends TreeItemReplaceGroup<ReportDialogData> {
     @Override
     protected List<TreeItem> initChildList(ReportDialogData data) {
-        if (data.getShowSubOption() == null || data.getShowSubOption().size() <= 0)
+        if (data.getShowSubOption() == null || data.getShowSubOption().size() <= 0) {
+            this.setCanExpand(false);
             return new ArrayList<>();
+        }
         //初始化子菜单
         List<ReportDialogData.ReportDialogItemData> list = new ArrayList();
         for (ReportDialogData.ReportDialogItemData s : data.getShowSubOption()) {
             list.add(s);
         }
         List<TreeItem> treeItems = ItemHelperFactory.createTreeItemObjectList(list, ReportDialogItemTree.class, this);
+        this.setCanExpand(true);
         return treeItems;
     }
 
