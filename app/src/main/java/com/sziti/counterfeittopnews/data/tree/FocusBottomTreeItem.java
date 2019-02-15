@@ -1,6 +1,6 @@
 package com.sziti.counterfeittopnews.data.tree;
 
-import android.util.Log;
+import android.view.View;
 
 import com.sziti.counterfeittopnews.R;
 import com.sziti.counterfeittopnews.data.FocusBottomData;
@@ -15,6 +15,11 @@ public class FocusBottomTreeItem extends TreeItem<FocusBottomData> {
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder) {
-
+       viewHolder.getView(R.id.compliment).setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               getData().getLikeListener().onClick(view);
+           }
+       });
     }
 }

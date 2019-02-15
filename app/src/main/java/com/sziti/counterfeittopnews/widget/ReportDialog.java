@@ -131,11 +131,13 @@ public class ReportDialog extends Dialog {
             int screenWidth = ScreenUtils.getScreenWidth(context);
 //            int offsetWidth = screenWidth - delete_location[0] - v.getMeasuredWidth();
             int offsetHeight = 0;
+            //当删除按钮在屏幕的偏上方
             if (delete_location[1] < screenHeight/2){
+                //将dialog设置到删除按钮下方
                 offsetHeight = delete_location[1] - ScreenUtils.getStateBar(context) + v.getMeasuredHeight();
                 direction = 1;
-            }else {
-                offsetHeight = delete_location[1] - 500 - ScreenUtils.getStateBar(context);
+            }else {//当删除按钮在屏幕的偏下方
+                offsetHeight = delete_location[1] - ScreenUtils.getStateBar(context) - height ;
                 direction = 0;
             }
             gravity = Gravity.TOP;

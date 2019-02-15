@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FocusTitleTreeItem extends TreeItemGroup<FocusTitleData> {
-    private ReportDialogItemGroup old;
     private List<TreeItem> ll;
     @Override
     protected List<TreeItem> initChildList(FocusTitleData data) {
@@ -58,9 +57,9 @@ public class FocusTitleTreeItem extends TreeItemGroup<FocusTitleData> {
                 int heightpx = ScreenUtils.dp2px(viewHolder.itemView.getContext(),getData().getDeleteOption().getShowOption().length * 60);
                 final ReportDialog reportDialog = new ReportDialog.Builder(viewHolder.itemView.getContext())
                         .view(R.layout.dialog_report).style(R.style.report_dialog)
-                        .offsetpx(viewHolder.getView(R.id.item_focus_title_delete))
                         .heightpx(heightpx)
                         .widthpx(screenWidth - (screenWidth - view.getRight()))
+                        .offsetpx(viewHolder.getView(R.id.item_focus_title_delete))
                         .cancelTouchout(true)
                         .build();
                 reportDialog.show();
@@ -74,8 +73,10 @@ public class FocusTitleTreeItem extends TreeItemGroup<FocusTitleData> {
                 for (int i = 0; i < getData().getDeleteOption().getShowOption().length;i++) {
                     ReportDialogData dialogData = new ReportDialogData();
                     dialogData.setShowOption(getData().getDeleteOption().getShowOption()[i]);
-                    dialogData.setShowInfo(getData().getDeleteOption().getShowInfo()[i]);
-                    if (getData().getDeleteOption().getShowSubOption()[i] != null && getData().getDeleteOption().getShowSubOption()[i].length > 0) {
+                    if (getData().getDeleteOption().getShowInfo() != null && getData().getDeleteOption().getShowInfo().length > 0) {
+                        dialogData.setShowInfo(getData().getDeleteOption().getShowInfo()[i]);
+                    }
+                    if (getData().getDeleteOption().getShowSubOption() != null && getData().getDeleteOption().getShowSubOption()[i] != null && getData().getDeleteOption().getShowSubOption()[i].length > 0) {
                         List<ReportDialogData.ReportDialogItemData> dataList = new ArrayList<>();
                         ReportDialogData.ReportDialogItemData reportDialogItemData = dialogData.new ReportDialogItemData();
                         reportDialogItemData.setShowSubOption(dialogData.getShowOption());

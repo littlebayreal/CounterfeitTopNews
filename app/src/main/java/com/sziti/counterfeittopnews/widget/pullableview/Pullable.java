@@ -1,4 +1,4 @@
-package com.sziti.counterfeittopnews.widget.pullableview;
+package com.sziti.counterfeittopnews.widget.Pullableview;
 
 public interface Pullable {
 	/**

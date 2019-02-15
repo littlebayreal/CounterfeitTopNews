@@ -1,12 +1,10 @@
-package com.sziti.counterfeittopnews.widget.pullableview;
+package com.sziti.counterfeittopnews.widget.Pullableview;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 

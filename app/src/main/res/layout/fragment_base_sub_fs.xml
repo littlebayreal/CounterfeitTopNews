@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <com.sziti.counterfeittopnews.widget.pullableview.PullToRefreshLayout
+    <com.sziti.counterfeittopnews.widget.Pullableview.PullToRefreshLayout
         android:id="@+id/fragment_base_sub_pullToRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -11,7 +11,7 @@
 
         <include layout="@layout/refresh_head" />
         <include layout="@layout/refresh_head_show"/>
-        <com.sziti.counterfeittopnews.widget.pullableview.PullableRelativeLayout
+        <com.sziti.counterfeittopnews.widget.Pullableview.PullableRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white">
@@ -31,7 +31,7 @@
             android:textColor="@color/gray"
             android:textSize="15sp"
             android:visibility="gone"/>
-        </com.sziti.counterfeittopnews.widget.pullableview.PullableRelativeLayout>
+        </com.sziti.counterfeittopnews.widget.Pullableview.PullableRelativeLayout>
         <include layout="@layout/load_more" />
-    </com.sziti.counterfeittopnews.widget.pullableview.PullToRefreshLayout>
+    </com.sziti.counterfeittopnews.widget.Pullableview.PullToRefreshLayout>
 </LinearLayout>

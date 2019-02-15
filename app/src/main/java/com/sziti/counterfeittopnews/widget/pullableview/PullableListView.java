@@ -1,8 +1,7 @@
-package com.sziti.counterfeittopnews.widget.pullableview;
+package com.sziti.counterfeittopnews.widget.Pullableview;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.ListView;
 
 public class PullableListView extends ListView implements Pullable

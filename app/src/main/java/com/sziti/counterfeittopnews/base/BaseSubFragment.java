@@ -13,7 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.sziti.counterfeittopnews.R;
-import com.sziti.counterfeittopnews.widget.pullableview.PullToRefreshLayout;
+import com.sziti.counterfeittopnews.widget.Pullableview.PullToRefreshLayout;
 
 public class BaseSubFragment extends Fragment {
     private String TAG;

@@ -3,7 +3,6 @@ package com.sziti.counterfeittopnews;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.PointF;
 import android.os.Bundle;
@@ -16,13 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sziti.counterfeittopnews.base.BaseFragment;
 import com.sziti.counterfeittopnews.base.BaseFragmentActivity;
@@ -146,7 +140,6 @@ public class MainActivity extends BaseFragmentActivity {
                                            @Override
                                            public void onAnimationUpdate(ValueAnimator animation) {
                                                float currentValue = (float) animation.getAnimatedValue();
-                                               Log.e("eee", "current:" + currentValue);
                                                button.setRotation((float) (45 - 45 * (currentValue / 100)));
                                                closeAnimation(imgs[0], currentValue, points[0], 180, 2f);
                                                closeAnimation(imgs[1], currentValue, points[1], 180, 2f);

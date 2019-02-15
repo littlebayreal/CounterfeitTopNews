@@ -1045,7 +1045,7 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
             vp.removeView(old);
         }
         textureViewContainer.removeView(JZMediaManager.textureView);
-
+        //添加缩小视频页面
         try {
             Constructor<Jzvd> constructor = (Constructor<Jzvd>) Jzvd.this.getClass().getConstructor(Context.class);
             Jzvd jzvd = constructor.newInstance(getContext());

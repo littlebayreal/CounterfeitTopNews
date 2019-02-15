@@ -1,10 +1,8 @@
-package com.sziti.counterfeittopnews.widget.pullableview;
+package com.sziti.counterfeittopnews.widget.Pullableview;
 
-import java.util.IllegalFormatCodePointException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -17,7 +15,6 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 

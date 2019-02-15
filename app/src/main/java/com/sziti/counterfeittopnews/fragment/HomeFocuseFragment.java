@@ -4,7 +4,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,16 +21,17 @@ import com.sziti.counterfeittopnews.data.tree.FocusBottomTreeItem;
 import com.sziti.counterfeittopnews.data.tree.FocusContentTreeItem;
 import com.sziti.counterfeittopnews.data.tree.FocusHorizonCardItem;
 import com.sziti.counterfeittopnews.data.tree.FocusTitleTreeItem;
-import com.sziti.counterfeittopnews.data.tree.ItemHorizonCard;
 import com.sziti.counterfeittopnews.video.base.Jzvd;
 import com.sziti.counterfeittopnews.video.custom.JZMediaIjkplayer;
+import com.sziti.counterfeittopnews.widget.SuperLikeView.BitmapProviderFactory;
+import com.sziti.counterfeittopnews.widget.SuperLikeView.SuperLikeLayout;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.BaseItemData;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.TreeRecyclerAdapter;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.TreeRecyclerType;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Item.TreeItem;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.factory.ItemConfig;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.factory.ItemHelperFactory;
-import com.sziti.counterfeittopnews.widget.pullableview.PullToRefreshLayout;
+import com.sziti.counterfeittopnews.widget.Pullableview.PullToRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +41,7 @@ import static com.sziti.counterfeittopnews.data.FocusHorizonImageData.FocusHoriz
 
 public class HomeFocuseFragment extends BaseSubFragment {
     private RecyclerView rv;
+    private SuperLikeLayout superLikeLayout;
     private TreeRecyclerAdapter treeRecyclerAdapter;
     private Handler handler = new Handler() {
         @Override
@@ -75,6 +76,9 @@ public class HomeFocuseFragment extends BaseSubFragment {
         rv.setLayoutManager(layoutManager);
         treeRecyclerAdapter = new TreeRecyclerAdapter(TreeRecyclerType.SHOW_ALL);
         rv.setAdapter(treeRecyclerAdapter);
+
+        superLikeLayout = v.findViewById(R.id.fragment_home_focuse_superLike);
+        superLikeLayout.setProvider(BitmapProviderFactory.getHDProvider(getContext()));
         initData();
         initListener();
         return v;
@@ -125,6 +129,19 @@ public class HomeFocuseFragment extends BaseSubFragment {
             focusBottomData.setReprintTotal(6);
             focusBottomData.setMessageTotal(10);
             focusBottomData.setComplimentTotal(24);
+            focusBottomData.setLikeListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int[] itemPosition = new int[2];
+                    int[] superLikePosition = new int[2];
+                    v.getLocationOnScreen(itemPosition);
+                    superLikeLayout.getLocationOnScreen(superLikePosition);
+                    int x = itemPosition[0];
+                    int y = (itemPosition[1] - superLikePosition[1]) + v.getHeight() / 2;
+                    //发动点击效果动画
+                    superLikeLayout.launch(x, y);
+                }
+            });
             focusTitleData.setFocusBottomData(focusBottomData);
 
             /*模拟视频数据*/
@@ -134,6 +151,9 @@ public class HomeFocuseFragment extends BaseSubFragment {
             focusTitleData.setAuthor("我是郭杰瑞");
             focusTitleData.setBaseInfo("4小时前·知名搞笑领域创作者");
             focusTitleData.setIllustration("奢侈品牌Tiffany卖下午茶，1000元吃一顿饭值得吗？");
+            deleteOption = focusTitleData.new DeleteOption();
+            deleteOption.setShowOption(Cons.DELETE_ONE);
+            focusTitleData.setDeleteOption(deleteOption);
             list.add(focusTitleData);
 
 
