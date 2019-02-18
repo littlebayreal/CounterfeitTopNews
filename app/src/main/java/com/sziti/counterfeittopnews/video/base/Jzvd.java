@@ -118,6 +118,8 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
     protected boolean mTouchingProgressBar;
     protected float mDownX;
     protected float mDownY;
+    protected float xDelta;
+    protected float yDelta;
     protected boolean mChangeVolume;
     protected boolean mChangePosition;
     protected boolean mChangeBrightness;
@@ -330,6 +332,7 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
         }
     }
 
+    //当列表滚动
     public static void onChildViewDetachedFromWindow(View view) {
         if (JzvdMgr.getCurrentJzvd() != null && JzvdMgr.getCurrentJzvd().currentScreen != Jzvd.SCREEN_WINDOW_TINY) {
             Jzvd jzvd = JzvdMgr.getCurrentJzvd();
@@ -479,114 +482,145 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
         float y = event.getY();
         int id = v.getId();
         if (id == R.id.surface_container) {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    Log.i(TAG, "onTouch surfaceContainer actionDown [" + this.hashCode() + "] ");
-                    mTouchingProgressBar = true;
+            if (getId() == R.id.jz_fullscreen_id) {
+                Log.e("zzz", "这是全屏幕状态");
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        Log.i(TAG, "onTouch surfaceContainer actionDown [" + this.hashCode() + "] ");
+                        mTouchingProgressBar = true;
 
-                    mDownX = x;
-                    mDownY = y;
-                    mChangeVolume = false;
-                    mChangePosition = false;
-                    mChangeBrightness = false;
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    Log.i(TAG, "onTouch surfaceContainer actionMove [" + this.hashCode() + "] ");
-                    float deltaX = x - mDownX;
-                    float deltaY = y - mDownY;
-                    float absDeltaX = Math.abs(deltaX);
-                    float absDeltaY = Math.abs(deltaY);
-                    if (currentScreen == SCREEN_WINDOW_FULLSCREEN) {
-                        if (!mChangePosition && !mChangeVolume && !mChangeBrightness) {
-                            if (absDeltaX > THRESHOLD || absDeltaY > THRESHOLD) {
-                                cancelProgressTimer();
-                                if (absDeltaX >= THRESHOLD) {
-                                    // 全屏模式下的CURRENT_STATE_ERROR状态下,不响应进度拖动事件.
-                                    // 否则会因为mediaplayer的状态非法导致App Crash
-                                    if (currentState != CURRENT_STATE_ERROR) {
-                                        mChangePosition = true;
-                                        mGestureDownPosition = getCurrentPositionWhenPlaying();
-                                    }
-                                } else {
-                                    //如果y轴滑动距离超过设置的处理范围，那么进行滑动事件处理
-                                    if (mDownX < mScreenWidth * 0.5f) {//左侧改变亮度
-                                        mChangeBrightness = true;
-                                        WindowManager.LayoutParams lp = JZUtils.getWindow(getContext()).getAttributes();
-                                        if (lp.screenBrightness < 0) {
-                                            try {
-                                                mGestureDownBrightness = Settings.System.getInt(getContext().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS);
-                                                Log.i(TAG, "current system brightness: " + mGestureDownBrightness);
-                                            } catch (Settings.SettingNotFoundException e) {
-                                                e.printStackTrace();
-                                            }
-                                        } else {
-                                            mGestureDownBrightness = lp.screenBrightness * 255;
-                                            Log.i(TAG, "current activity brightness: " + mGestureDownBrightness);
+                        mDownX = x;
+                        mDownY = y;
+                        mChangeVolume = false;
+                        mChangePosition = false;
+                        mChangeBrightness = false;
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        Log.i(TAG, "onTouch surfaceContainer actionMove [" + this.hashCode() + "] ");
+                        float deltaX = x - mDownX;
+                        float deltaY = y - mDownY;
+                        float absDeltaX = Math.abs(deltaX);
+                        float absDeltaY = Math.abs(deltaY);
+                        if (currentScreen == SCREEN_WINDOW_FULLSCREEN) {
+                            if (!mChangePosition && !mChangeVolume && !mChangeBrightness) {
+                                if (absDeltaX > THRESHOLD || absDeltaY > THRESHOLD) {
+                                    cancelProgressTimer();
+                                    if (absDeltaX >= THRESHOLD) {
+                                        // 全屏模式下的CURRENT_STATE_ERROR状态下,不响应进度拖动事件.
+                                        // 否则会因为mediaplayer的状态非法导致App Crash
+                                        if (currentState != CURRENT_STATE_ERROR) {
+                                            mChangePosition = true;
+                                            mGestureDownPosition = getCurrentPositionWhenPlaying();
                                         }
-                                    } else {//右侧改变声音
-                                        mChangeVolume = true;
-                                        mGestureDownVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                                    } else {
+                                        //如果y轴滑动距离超过设置的处理范围，那么进行滑动事件处理
+                                        if (mDownX < mScreenWidth * 0.5f) {//左侧改变亮度
+                                            mChangeBrightness = true;
+                                            WindowManager.LayoutParams lp = JZUtils.getWindow(getContext()).getAttributes();
+                                            if (lp.screenBrightness < 0) {
+                                                try {
+                                                    mGestureDownBrightness = Settings.System.getInt(getContext().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS);
+                                                    Log.i(TAG, "current system brightness: " + mGestureDownBrightness);
+                                                } catch (Settings.SettingNotFoundException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            } else {
+                                                mGestureDownBrightness = lp.screenBrightness * 255;
+                                                Log.i(TAG, "current activity brightness: " + mGestureDownBrightness);
+                                            }
+                                        } else {//右侧改变声音
+                                            mChangeVolume = true;
+                                            mGestureDownVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                    if (mChangePosition) {
-                        long totalTimeDuration = getDuration();
-                        mSeekTimePosition = (int) (mGestureDownPosition + deltaX * totalTimeDuration / mScreenWidth);
-                        if (mSeekTimePosition > totalTimeDuration)
-                            mSeekTimePosition = totalTimeDuration;
-                        String seekTime = JZUtils.stringForTime(mSeekTimePosition);
-                        String totalTime = JZUtils.stringForTime(totalTimeDuration);
+                        if (mChangePosition) {
+                            long totalTimeDuration = getDuration();
+                            mSeekTimePosition = (int) (mGestureDownPosition + deltaX * totalTimeDuration / mScreenWidth);
+                            if (mSeekTimePosition > totalTimeDuration)
+                                mSeekTimePosition = totalTimeDuration;
+                            String seekTime = JZUtils.stringForTime(mSeekTimePosition);
+                            String totalTime = JZUtils.stringForTime(totalTimeDuration);
 
-                        showProgressDialog(deltaX, seekTime, mSeekTimePosition, totalTime, totalTimeDuration);
-                    }
-                    if (mChangeVolume) {
-                        deltaY = -deltaY;
-                        int max = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-                        int deltaV = (int) (max * deltaY * 3 / mScreenHeight);
-                        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mGestureDownVolume + deltaV, 0);
-                        //dialog中显示百分比
-                        int volumePercent = (int) (mGestureDownVolume * 100 / max + deltaY * 3 * 100 / mScreenHeight);
-                        showVolumeDialog(-deltaY, volumePercent);
-                    }
-
-                    if (mChangeBrightness) {
-                        deltaY = -deltaY;
-                        int deltaV = (int) (255 * deltaY * 3 / mScreenHeight);
-                        WindowManager.LayoutParams params = JZUtils.getWindow(getContext()).getAttributes();
-                        if (((mGestureDownBrightness + deltaV) / 255) >= 1) {//这和声音有区别，必须自己过滤一下负值
-                            params.screenBrightness = 1;
-                        } else if (((mGestureDownBrightness + deltaV) / 255) <= 0) {
-                            params.screenBrightness = 0.01f;
-                        } else {
-                            params.screenBrightness = (mGestureDownBrightness + deltaV) / 255;
+                            showProgressDialog(deltaX, seekTime, mSeekTimePosition, totalTime, totalTimeDuration);
                         }
-                        JZUtils.getWindow(getContext()).setAttributes(params);
-                        //dialog中显示百分比
-                        int brightnessPercent = (int) (mGestureDownBrightness * 100 / 255 + deltaY * 3 * 100 / mScreenHeight);
-                        showBrightnessDialog(brightnessPercent);
+                        if (mChangeVolume) {
+                            deltaY = -deltaY;
+                            int max = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                            int deltaV = (int) (max * deltaY * 3 / mScreenHeight);
+                            mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mGestureDownVolume + deltaV, 0);
+                            //dialog中显示百分比
+                            int volumePercent = (int) (mGestureDownVolume * 100 / max + deltaY * 3 * 100 / mScreenHeight);
+                            showVolumeDialog(-deltaY, volumePercent);
+                        }
+
+                        if (mChangeBrightness) {
+                            deltaY = -deltaY;
+                            int deltaV = (int) (255 * deltaY * 3 / mScreenHeight);
+                            WindowManager.LayoutParams params = JZUtils.getWindow(getContext()).getAttributes();
+                            if (((mGestureDownBrightness + deltaV) / 255) >= 1) {//这和声音有区别，必须自己过滤一下负值
+                                params.screenBrightness = 1;
+                            } else if (((mGestureDownBrightness + deltaV) / 255) <= 0) {
+                                params.screenBrightness = 0.01f;
+                            } else {
+                                params.screenBrightness = (mGestureDownBrightness + deltaV) / 255;
+                            }
+                            JZUtils.getWindow(getContext()).setAttributes(params);
+                            //dialog中显示百分比
+                            int brightnessPercent = (int) (mGestureDownBrightness * 100 / 255 + deltaY * 3 * 100 / mScreenHeight);
+                            showBrightnessDialog(brightnessPercent);
 //                        mDownY = y;
-                    }
-                    break;
-                case MotionEvent.ACTION_UP:
-                    Log.i(TAG, "onTouch surfaceContainer actionUp [" + this.hashCode() + "] ");
-                    mTouchingProgressBar = false;
-                    dismissProgressDialog();
-                    dismissVolumeDialog();
-                    dismissBrightnessDialog();
-                    if (mChangePosition) {
-                        onEvent(JZUserAction.ON_TOUCH_SCREEN_SEEK_POSITION);
-                        JZMediaManager.seekTo(mSeekTimePosition);
-                        long duration = getDuration();
-                        int progress = (int) (mSeekTimePosition * 100 / (duration == 0 ? 1 : duration));
-                        progressBar.setProgress(progress);
-                    }
-                    if (mChangeVolume) {
-                        onEvent(JZUserAction.ON_TOUCH_SCREEN_SEEK_VOLUME);
-                    }
-                    startProgressTimer();
-                    break;
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        Log.i(TAG, "onTouch surfaceContainer actionUp [" + this.hashCode() + "] ");
+                        mTouchingProgressBar = false;
+                        dismissProgressDialog();
+                        dismissVolumeDialog();
+                        dismissBrightnessDialog();
+                        if (mChangePosition) {
+                            onEvent(JZUserAction.ON_TOUCH_SCREEN_SEEK_POSITION);
+                            JZMediaManager.seekTo(mSeekTimePosition);
+                            long duration = getDuration();
+                            int progress = (int) (mSeekTimePosition * 100 / (duration == 0 ? 1 : duration));
+                            progressBar.setProgress(progress);
+                        }
+                        if (mChangeVolume) {
+                            onEvent(JZUserAction.ON_TOUCH_SCREEN_SEEK_VOLUME);
+                        }
+                        startProgressTimer();
+                        break;
+                }
+            } else if (getId() == R.id.jz_tiny_id) {
+                int t_x = (int) event.getRawX();
+                int t_y = (int) event.getRawY();
+                ViewGroup vp = (JZUtils.scanForActivity(getContext()))//.getWindow().getDecorView();
+                        .findViewById(Window.ID_ANDROID_CONTENT);
+                View target = vp.findViewById(R.id.jz_tiny_id);
+                Log.e("zzz", "这是小屏幕状态");
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) target
+                                .getLayoutParams();
+
+                        xDelta = t_x - params.leftMargin;
+                        yDelta = t_y - params.topMargin;
+                        //记录手指按下时,悬浮窗的位置
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        //滑动的x,y坐标
+                        int dx = (int) (t_x - xDelta);
+                        int dy = (int) (t_y - yDelta);
+                        LayoutParams lp = (LayoutParams) target.getLayoutParams();
+                        lp.leftMargin = dx;
+                        lp.topMargin = dy;
+                        vp.updateViewLayout(target,lp);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        break;
+                }
             }
         }
         return false;
@@ -894,6 +928,7 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
             mProgressTimerTask.cancel();
         }
     }
+
     //更新进度条以及时间显示
     public void onProgress(int progress, long position, long duration) {
 //        Log.d(TAG, "onProgress: progress=" + progress + " position=" + position + " duration=" + duration);
@@ -990,6 +1025,7 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
             currentTimeTextView.setText(JZUtils.stringForTime(progress * duration / 100));
         }
     }
+
     //打开全屏
     public void startWindowFullscreen() {
         Log.i(TAG, "startWindowFullscreen " + " [" + this.hashCode() + "] ");
@@ -1032,6 +1068,7 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
         }
 
     }
+
     //打开小屏幕
     public void startWindowTiny() {
         Log.i(TAG, "startWindowTiny " + " [" + this.hashCode() + "] ");
@@ -1051,7 +1088,8 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
             Jzvd jzvd = constructor.newInstance(getContext());
             jzvd.setId(R.id.jz_tiny_id);
             LayoutParams lp = new LayoutParams(400, 400);
-            lp.gravity = Gravity.RIGHT | Gravity.BOTTOM;
+            lp.leftMargin = 0;
+            lp.topMargin = 0;
             vp.addView(jzvd, lp);
             jzvd.setUp(jzDataSource, JzvdStd.SCREEN_WINDOW_TINY);
             jzvd.setState(currentState);
@@ -1177,6 +1215,7 @@ public abstract class Jzvd extends FrameLayout implements View.OnClickListener, 
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
         }
     }
+
     //更新视频的进度条
     public class ProgressTimerTask extends TimerTask {
         @Override
