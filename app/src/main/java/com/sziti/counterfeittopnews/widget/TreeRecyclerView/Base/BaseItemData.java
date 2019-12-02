@@ -7,11 +7,20 @@ package com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base;
 /**
  * javabean继承该类,后台返回的json中可以包含viewItemType,通过解析返回的viewItemType确定item样式
  */
-public abstract class BaseItemData {
-
+public abstract class BaseItemData<T> {
+    private T data;
     private int viewItemType;
 
     private int spanSize;
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
     public void setViewItemType(int viewItemType) {
         this.viewItemType = viewItemType;
     }

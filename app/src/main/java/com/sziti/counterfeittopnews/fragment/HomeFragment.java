@@ -23,7 +23,7 @@ public class HomeFragment extends BaseFragment {
     private ViewPager vp;
     private TabLayout tabLayout;
     private List<BaseSubFragment> fragmentList;
-    private String[] menu = {"关注", "推荐", "苏州", "视频", "热点", "小视频", "图片"};
+    private String[] menu = {"关注", "推荐", "苏州", "视频", "热点", "小视频", "图片","军事","国际","旅游","养生"};
 
     @Override
     public View onCreateSubView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,6 +40,11 @@ public class HomeFragment extends BaseFragment {
                     HomeFocuseFragment homeFocuseFragment = new HomeFocuseFragment();
                     homeFocuseFragment.setTAG(m);
                     fragmentList.add(homeFocuseFragment);
+                    break;
+                case "推荐":
+                    HomeRecommendFragment homeRecommendFragment = new HomeRecommendFragment();
+                    homeRecommendFragment.setTAG(m);
+                    fragmentList.add(homeRecommendFragment);
                     break;
                 default:
                     CommonFragment commonFragment = new CommonFragment();

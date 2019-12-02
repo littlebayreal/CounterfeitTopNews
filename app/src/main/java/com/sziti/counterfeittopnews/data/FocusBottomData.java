@@ -2,6 +2,8 @@ package com.sziti.counterfeittopnews.data;
 
 import android.view.View;
 
+import com.sziti.counterfeittopnews.http.Response.News;
+import com.sziti.counterfeittopnews.http.Response.NewsData;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.BaseItemData;
 
 public class FocusBottomData extends BaseItemData {
@@ -10,6 +12,7 @@ public class FocusBottomData extends BaseItemData {
     private int complimentTotal;
     //点赞的事件回调
     private View.OnClickListener likeListener;
+
     public int getReprintTotal() {
         return reprintTotal;
     }

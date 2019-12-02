@@ -19,6 +19,7 @@ public class BaseSubFragment extends Fragment {
     private String TAG;
     private FrameLayout mBaseContainer;
     private TextView mBaseNodata;
+    public long lastTime;
     //刷新控件
     private PullToRefreshLayout swipeRefreshLayout;
     public String getTAG() {

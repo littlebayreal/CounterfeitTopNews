@@ -6,10 +6,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
 import com.sziti.counterfeittopnews.Cons;
 import com.sziti.counterfeittopnews.R;
 import com.sziti.counterfeittopnews.base.BaseSubFragment;
@@ -21,6 +23,10 @@ import com.sziti.counterfeittopnews.data.tree.FocusBottomTreeItem;
 import com.sziti.counterfeittopnews.data.tree.FocusContentTreeItem;
 import com.sziti.counterfeittopnews.data.tree.FocusHorizonCardItem;
 import com.sziti.counterfeittopnews.data.tree.FocusTitleTreeItem;
+import com.sziti.counterfeittopnews.http.Response.News;
+import com.sziti.counterfeittopnews.http.Response.NewsData;
+import com.sziti.counterfeittopnews.http.Response.NewsResponse;
+import com.sziti.counterfeittopnews.http.RetrofitClient;
 import com.sziti.counterfeittopnews.video.base.Jzvd;
 import com.sziti.counterfeittopnews.video.custom.JZMediaIjkplayer;
 import com.sziti.counterfeittopnews.widget.SuperLikeView.BitmapProviderFactory;
@@ -268,7 +274,6 @@ public class HomeFocuseFragment extends BaseSubFragment {
             public void onChildViewAttachedToWindow(View view) {
                 Jzvd.onChildViewAttachedToWindow(view, R.id.item_focus_content_jzvdstd);
             }
-
             @Override
             public void onChildViewDetachedFromWindow(View view) {
                 Jzvd.onChildViewDetachedFromWindow(view);

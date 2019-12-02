@@ -2,6 +2,8 @@ package com.sziti.counterfeittopnews.data;
 
 import android.graphics.drawable.Drawable;
 
+import com.sziti.counterfeittopnews.http.Response.News;
+import com.sziti.counterfeittopnews.http.Response.NewsData;
 import com.sziti.counterfeittopnews.widget.TreeRecyclerView.Base.BaseItemData;
 
 import java.util.List;
