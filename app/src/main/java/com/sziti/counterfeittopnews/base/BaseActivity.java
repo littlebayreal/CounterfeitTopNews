@@ -67,12 +67,6 @@ public class BaseActivity extends Activity {
         mActionBar.container = (FrameLayout) layout.findViewById(R.id.base_container);
         FrameLayout container = (FrameLayout) layout.findViewById(R.id.base_container);
         container.addView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-//        mActionBar.buttonLeft.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
 
         initProgressDialog();
         super.setContentView(layout, params);

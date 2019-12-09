@@ -1,6 +1,7 @@
 package com.sziti.counterfeittopnews.data;
 
 import android.graphics.drawable.Drawable;
+import android.view.View;
 
 import com.sziti.counterfeittopnews.http.Response.News;
 import com.sziti.counterfeittopnews.http.Response.NewsData;
@@ -26,6 +27,7 @@ public class FocusContentData extends BaseItemData {
     private String article;
     private List<String> showImage;
     private List<Drawable> showImageDrawable;
+    private View.OnClickListener clickListener;
 
     public int getType() {
         return type;
@@ -82,4 +84,12 @@ public class FocusContentData extends BaseItemData {
     public void setShowImageDrawable(List<Drawable> showImageDrawable) {
         this.showImageDrawable = showImageDrawable;
     }
+
+	public View.OnClickListener getClickListener() {
+		return clickListener;
+	}
+
+	public void setClickListener(View.OnClickListener clickListener) {
+		this.clickListener = clickListener;
+	}
 }

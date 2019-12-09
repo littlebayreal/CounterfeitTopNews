@@ -1,4 +1,4 @@
-package com.sziti.counterfeittopnews;
+package com.sziti.counterfeittopnews.ui;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -18,6 +18,7 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.sziti.counterfeittopnews.R;
 import com.sziti.counterfeittopnews.base.BaseFragment;
 import com.sziti.counterfeittopnews.base.BaseFragmentActivity;
 import com.sziti.counterfeittopnews.fragment.HomeFragment;

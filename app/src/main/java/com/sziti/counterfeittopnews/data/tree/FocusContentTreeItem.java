@@ -104,4 +104,11 @@ public class FocusContentTreeItem extends TreeItem<FocusContentData> {
                 break;
         }
     }
+
+	@Override
+	public void onClick(ViewHolder viewHolder) {
+		super.onClick(viewHolder);
+		if (getData().getClickListener() != null)
+		getData().getClickListener().onClick(viewHolder.itemView);
+	}
 }

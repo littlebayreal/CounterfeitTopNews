@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.sziti.counterfeittopnews.Cons;
-import com.sziti.counterfeittopnews.NewsDetailActivity;
+import com.sziti.counterfeittopnews.ui.NewsDetailActivity;
 import com.sziti.counterfeittopnews.R;
 import com.sziti.counterfeittopnews.base.BaseSubFragment;
 import com.sziti.counterfeittopnews.data.FocusBottomData;
